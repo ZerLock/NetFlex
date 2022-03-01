@@ -17,7 +17,7 @@ Recréer une application web comme Netflix pour s'entrainer et apprendre les tec
 - NodeJS
 - Express
 
-## Base de données
+### Base de données
 - MariaDB
 - Phpmyadmin
 - SQL
