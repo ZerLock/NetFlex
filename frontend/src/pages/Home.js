@@ -15,12 +15,12 @@ class Home extends React.Component {
                             <input type='text' placeholder="search" className='w-80 px-2 focus:outline-none border-b-2 placeholder-white-600 border-white bg-transparent' />
                         </li>
                         <li>
-                            <button className='rounded'>
-                                <img alt='search button' src={search} className='h-5 hover:h-6' />
+                            <button className='transition hover:-transition-y-1 hover:duration-300 hover:scale-110 ease-in-out' >
+                                <img alt='search button' src={search} width='25px' />
                             </button>
                         </li>
                         <li>
-                            <p>Browse</p>
+                            <a href='#'>Browse</a>
                         </li>
                         <li>
                             <button className='bg-[#404040] rounded-lg p-2 hover:bg-[#505050] ring-white active:bg-[#353535]' >Account</button>
