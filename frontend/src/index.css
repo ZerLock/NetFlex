@@ -1,3 +1,12 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.login_panel {
+    height: calc(100vh - 72px);
+}
+
+.background {
+    background: linear-gradient(to top, transparent, #141414),
+        url('./assets/background_image.jpg');
+}
