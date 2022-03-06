@@ -8,7 +8,7 @@ import search from '../assets/search.png';
 function Home() {
     return (
         <div className='w-screen h-screen mx-auto text-white bg-[#141414]'>
-            <nav className='flex items-center p-4 bg-[#303030]' >
+            <nav className='flex items-center p-4 bg-[#202020]' >
                 <Link to="/">
                     <img className='h-10' src={logo} alt='logo' />
                 </Link>
