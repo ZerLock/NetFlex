@@ -10,3 +10,19 @@
     background: linear-gradient(to top, transparent, #141414),
         url('./assets/background_image.jpg');
 }
+
+.not_connected {
+    height: calc(100vh - 72px);
+}
+
+#get_started_button > img, span {
+    vertical-align: middle;
+}
+
+span {
+    margin-top: 3px;
+}
+
+:root {
+    --toastify-icon-color-error: '#c0c0c0';
+}

@@ -2,9 +2,8 @@ import React from 'react';
 // import { Link } from 'react-router-dom';
 import { isExpired } from 'react-jwt';
 
-import '../index.css'
-
 import { HomeNavbar } from './Navbar';
+import { NotConnected } from './Notconnected';
 
 export default class Home extends React.Component {
 
@@ -29,7 +28,7 @@ export default class Home extends React.Component {
                 <HomeNavbar />
                 { this.state.isLoggedIn ?
                 <h1>Is Logged in</h1> :
-                <h1>Is not logged in</h1> }
+                <NotConnected /> }
             </div>
         );
     }

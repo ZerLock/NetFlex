@@ -5,8 +5,6 @@ import { Link } from 'react-router-dom';
 import logo from '../assets/logo.png';
 import search from '../assets/search.png';
 
-import '../index.css';
-
 export function HomeNavbar() {
     return (
         <nav className='flex items-center p-4 bg-[#202020]' >
@@ -24,12 +22,12 @@ export function HomeNavbar() {
                 </li>
                 <Link to='/register'>
                 <li>
-                    <button href='/#'>Browse</button>
+                    <button href='/'>Browse</button>
                 </li>
                 </Link>
                 <Link to='/login'>
                     <li>
-                        <button className='bg-[#404040] rounded-lg p-2 hover:bg-[#505050] ring-white active:bg-[#353535]' >Account</button>
+                        <button className='bg-[#404040] rounded-lg p-2 px-4 hover:bg-[#505050] ring-white active:bg-[#353535]' >Sign In</button>
                     </li>
                 </Link>
             </ul>

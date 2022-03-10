@@ -8,7 +8,7 @@ const { register, login } = require('../users/users.query');
 router.post('/register', (req, res) => {
     var firstname = req.body.firstname;
     var name = req.body.name;
-    var nickname = req.body.name;
+    var nickname = req.body.nickname;
     var email = req.body.email;
     var password = req.body.password;
 
