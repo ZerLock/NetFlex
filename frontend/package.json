@@ -18,6 +18,7 @@
     "react-jwt": "^1.1.4",
     "react-router-dom": "^6.2.2",
     "react-scripts": "5.0.0",
+    "react-select": "^5.2.2",
     "react-toastify": "^8.2.0",
     "stream": "^0.0.2",
     "util": "^0.12.4",

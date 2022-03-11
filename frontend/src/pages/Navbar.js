@@ -25,6 +25,23 @@ export function HomeNavbar() {
             <Link to="/">
                 <img className='h-10' src={logo} alt='logo' />
             </Link>
+            <ul className='ml-6 flex items-center space-x-4'>
+                <Link to='/movies'>
+                    <li className='transition hover:scale-110'>
+                        <button>Movies</button>
+                    </li>
+                </Link>
+                <Link to='/tvshows'>
+                    <li className='transition hover:scale-110'>
+                        <button>TV Shows</button>
+                    </li>
+                </Link>
+                <Link to='mylist'>
+                    <li className='transition hover:scale-110'>
+                        <button>My List</button>
+                    </li>
+                </Link>
+            </ul>
             <ul className='ml-auto flex items-center space-x-4'>
                 <li>
                     <input type='text' disabled={!isConnected()} placeholder="Search" className='w-80 px-2 focus:outline-none border-b-2 placeholder-white-600 border-white bg-transparent' />
@@ -35,9 +52,9 @@ export function HomeNavbar() {
                     </button>
                 </li>
                 <Link to='/'>
-                <li>
-                    <button href='/'>Browse</button>
-                </li>
+                    <li>
+                        <button href='/'>Browse</button>
+                    </li>
                 </Link>
                 <Link to='/login'>
                     <li>

@@ -47,10 +47,10 @@ export class Loggedin extends React.Component {
 
     render() {
         return (
-            <div className='overflow-hidden p-5 text-white mx-auto not_connected items-center justify-center'>
+            <div className='overflow-hidden p-5 text-white not_connected items-center justify-center'>
                 {/* Movies */}
                 <div className='flex flex-row align-bottom'>
-                    <h1 className='text-2xl'>Movies</h1>
+                    <h1 className='text-2xl'>Movies selection</h1>
                     <Link to='/movies' className='ml-auto'>
                         <button className='text-red-600 ml-auto transition hover:scale-110'>See all <span className='text-3xl pb-1'> > </span></button>
                     </Link>
@@ -60,7 +60,7 @@ export class Loggedin extends React.Component {
                         <>
                             <div key={movie.show_id} className='flex-shrink-0 transition hover:scale-110'>
                                 <h1 className='text-lg truncate w-52'>{movie.title}</h1>
-                                <img alt={String(movie.show_id)} className='object-contain w-30 h-80' src={movie.picture} />
+                                <img alt={String(movie.show_id)} className='object-cover w-56 h-80' src={movie.picture} />
                             </div>
                         </>
                     ))}
@@ -68,7 +68,7 @@ export class Loggedin extends React.Component {
 
                 {/* Tv_Shows */}
                 <div className='flex flex-row align-bottom pt-5'>
-                    <h1 className='text-2xl'>TV Shows</h1>
+                    <h1 className='text-2xl'>TV Shows selection</h1>
                     <Link to='/tvshows' className='ml-auto'>
                         <button className='text-red-600 transition hover:scale-110'>See all <span className='text-3xl pb-1'> > </span></button>
                     </Link>
@@ -78,7 +78,7 @@ export class Loggedin extends React.Component {
                         <>
                             <div key={tv_show.show_id} className='flex-shrink-0 transition hover:scale-110'>
                                 <h1 className='text-lg truncate w-52'>{tv_show.title}</h1>
-                                <img alt={String(tv_show.show_id)} className='object-contain w-30 h-80' src={tv_show.picture} />
+                                <img className='object-cover w-56 h-80' src={tv_show.picture} alt={String(tv_show.show_id)} />
                             </div>
                         </>
                     ))}
