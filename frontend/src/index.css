@@ -23,6 +23,10 @@ span {
     margin-top: 3px;
 }
 
+.child {
+    overflow-y: hidden;
+}
+
 :root {
     --toastify-icon-color-error: '#c0c0c0';
 }

@@ -17,15 +17,18 @@ class Register extends React.Component {
             email: '',
             password: '',
             popup_msg: 'Registration failed',
-            redirect: false
+            redirect: false,
         };
         this.validateFormRegister = this.validateFormRegister.bind(this);
         this.handleSubmitRegister = this.handleSubmitRegister.bind(this);
     }
 
     componentDidMount() {
-        /*const { navigation } = this.props;
-        this.state.email = navigation.getParam('email');*/
+        const new_email = localStorage.getItem('user_email_from_notconnected');
+        if (new_email) {
+            this.setState({ email: new_email});
+            localStorage.removeItem('user_email_from_notconnected');
+        }
     }
 
     validateFormRegister() {

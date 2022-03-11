@@ -4,6 +4,7 @@ import { isExpired } from 'react-jwt';
 
 import { HomeNavbar } from './Navbar';
 import { NotConnected } from './Notconnected';
+import { Loggedin } from './Loggedin';
 
 export default class Home extends React.Component {
 
@@ -27,7 +28,7 @@ export default class Home extends React.Component {
             <div className='w-screen h-screen mx-auto text-white bg-[#141414]'>
                 <HomeNavbar />
                 { this.state.isLoggedIn ?
-                <h1>Is Logged in</h1> :
+                <Loggedin />:
                 <NotConnected /> }
             </div>
         );
