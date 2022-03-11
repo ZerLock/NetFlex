@@ -19,7 +19,7 @@ router.get('/movies', (req, res, next) => {
     res.status(200).json({ msg: 'movies' })
 });
 
-router.get('tv_shows', (req, res, next) => {
+router.get('/tv_shows', (req, res, next) => {
     res.status(200).json({ msg: 'tv shows' });
 });
 
