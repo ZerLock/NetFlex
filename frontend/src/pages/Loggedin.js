@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 export class Loggedin extends React.Component {
 
@@ -7,7 +8,7 @@ export class Loggedin extends React.Component {
         this.state = {
             movies: [],
             tv_shows: []
-        }
+        };
     }
 
     componentDidMount() {
@@ -46,32 +47,38 @@ export class Loggedin extends React.Component {
 
     render() {
         return (
-            <div className='overflow-hidden p-6 text-white mx-auto not_connected items-center justify-center'>
+            <div className='overflow-hidden p-5 text-white mx-auto not_connected items-center justify-center'>
                 {/* Movies */}
                 <div className='flex flex-row align-bottom'>
                     <h1 className='text-2xl'>Movies</h1>
-                    <button className='text-red-600 ml-auto transition hover:scale-110'>See all <span className='text-3xl pb-1'> > </span></button>
+                    <Link to='/movies' className='ml-auto'>
+                        <button className='text-red-600 ml-auto transition hover:scale-110'>See all <span className='text-3xl pb-1'> > </span></button>
+                    </Link>
                 </div>
-                <div className='child flex space-x-4 pt-5 mx-6 text-blue-900'>
+                <div className='child flex space-x-5 pt-3 px-6'>
                     {this.state.movies.map(movie => (
                         <>
                             <div key={movie.show_id} className='flex-shrink-0 transition hover:scale-110'>
-                                <img alt={String(movie.show_id)} className='w-30 h-[20rem]' src={movie.picture} />
+                                <h1 className='text-lg truncate w-52'>{movie.title}</h1>
+                                <img alt={String(movie.show_id)} className='object-contain w-30 h-80' src={movie.picture} />
                             </div>
                         </>
                     ))}
                 </div>
 
                 {/* Tv_Shows */}
-                <div className='flex flex-row align-bottom pt-6'>
+                <div className='flex flex-row align-bottom pt-5'>
                     <h1 className='text-2xl'>TV Shows</h1>
-                    <button className='text-red-600 ml-auto transition hover:scale-110'>See all <span className='text-3xl pb-1'> > </span></button>
+                    <Link to='/tvshows' className='ml-auto'>
+                        <button className='text-red-600 transition hover:scale-110'>See all <span className='text-3xl pb-1'> > </span></button>
+                    </Link>
                 </div>
-                <div className='child flex space-x-4 pt-5 mx-6 text-blue-900'>
+                <div className='child flex space-x-5 pt-3 px-6'>
                     {this.state.tv_shows.map(tv_show => (
                         <>
                             <div key={tv_show.show_id} className='flex-shrink-0 transition hover:scale-110'>
-                                <img alt={String(tv_show.show_id)} className='w-30 h-[20rem]' src={tv_show.picture} />
+                                <h1 className='text-lg truncate w-52'>{tv_show.title}</h1>
+                                <img alt={String(tv_show.show_id)} className='object-contain w-30 h-80' src={tv_show.picture} />
                             </div>
                         </>
                     ))}

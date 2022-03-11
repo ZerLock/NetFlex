@@ -1,6 +1,7 @@
 import React from 'react';
 // import { Link } from 'react-router-dom';
-import { isExpired } from 'react-jwt';
+
+import isConnected from '../js/isConnected';
 
 import { HomeNavbar } from './Navbar';
 import { NotConnected } from './Notconnected';
@@ -14,13 +15,7 @@ export default class Home extends React.Component {
     }
 
     componentDidMount() {
-        if (!localStorage.getItem('user_token')) {
-            this.setState({isLoggedIn: false});
-        } else {
-            const isTokenExpired = isExpired(localStorage.getItem('user_token'));
-            if (isTokenExpired)
-                this.setState({isLoggedIn: false});
-        }
+        this.setState({ isLoggedIn: isConnected() });
     }
 
     render() {

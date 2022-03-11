@@ -41,7 +41,9 @@ export function HomeNavbar() {
                 </Link>
                 <Link to='/login'>
                     <li>
-                        <button className='bg-[#404040] rounded-lg p-2 px-4 hover:bg-[#505050] ring-white active:bg-[#353535]' >Sign In</button>
+                        <button className='bg-[#404040] rounded-lg p-2 px-4 hover:bg-[#505050] ring-white active:bg-[#353535]' >
+                            {!isConnected() ? "Sign In" : "Account"}
+                        </button>
                     </li>
                 </Link>
             </ul>
