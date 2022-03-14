@@ -1,5 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { Swiper, SwiperSlide } from 'swiper/react';
+
+import 'swiper/css';
 
 export class Loggedin extends React.Component {
 
@@ -55,15 +58,17 @@ export class Loggedin extends React.Component {
                         <button className='text-red-600 ml-auto transition hover:scale-110'>See all <span className='text-3xl pb-1'> > </span></button>
                     </Link>
                 </div>
-                <div className='child flex space-x-5 pt-3 px-6'>
-                    {this.state.movies.map(movie => (
-                        <>
-                            <div key={movie.show_id} className='flex-shrink-0 transition hover:scale-110'>
-                                <h1 className='text-lg truncate w-52'>{movie.title}</h1>
-                                <img alt={String(movie.show_id)} className='object-cover w-56 h-80' src={movie.picture} />
-                            </div>
-                        </>
-                    ))}
+                <div className='overflow-x-visible w-full pt-3 px-6'>
+                    <Swiper slidesPerView={7} className=''>
+                        {this.state.movies.map(movie => (
+                            <SwiperSlide className='flex-shrink-0 transition hover:scale-110'>
+                                <div key={movie.show_id} className=''>
+                                    <h1 className='text-lg truncate w-52'>{movie.title}</h1>
+                                    <img alt={String(movie.show_id)} className='object-cover w-56 h-80' src={movie.picture} />
+                                </div>
+                            </SwiperSlide>
+                        ))}
+                    </Swiper>
                 </div>
 
                 {/* Tv_Shows */}
@@ -73,15 +78,17 @@ export class Loggedin extends React.Component {
                         <button className='text-red-600 transition hover:scale-110'>See all <span className='text-3xl pb-1'> > </span></button>
                     </Link>
                 </div>
-                <div className='child flex space-x-5 pt-3 px-6'>
-                    {this.state.tv_shows.map(tv_show => (
-                        <>
-                            <div key={tv_show.show_id} className='flex-shrink-0 transition hover:scale-110'>
-                                <h1 className='text-lg truncate w-52'>{tv_show.title}</h1>
-                                <img className='object-cover w-56 h-80' src={tv_show.picture} alt={String(tv_show.show_id)} />
-                            </div>
-                        </>
-                    ))}
+                <div className='child pt-3 px-6'>
+                    <Swiper slidesPerView={7}>
+                        {this.state.tv_shows.map(tv_show => (
+                            <SwiperSlide className='flex-shrink-0 transition hover:scale-110'>
+                                <div key={tv_show.show_id} className=''>
+                                    <h1 className='text-lg truncate w-52'>{tv_show.title}</h1>
+                                    <img className='object-cover w-56 h-80' src={tv_show.picture} alt={String(tv_show.show_id)} />
+                                </div>
+                            </SwiperSlide>
+                        ))}
+                    </Swiper>
                 </div>
             </div>
         );
