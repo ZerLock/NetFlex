@@ -27,6 +27,10 @@ span {
     overflow-y: hidden;
 }
 
+.slides-container {
+    margin-left: 50%;
+}
+
 :root {
     --toastify-icon-color-error: '#c0c0c0';
 }

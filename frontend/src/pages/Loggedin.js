@@ -49,28 +49,28 @@ export class Loggedin extends React.Component {
     }
 
     render() {
+        const swiperParams = {
+            mousewheel: true
+        }
         return (
-            <div className='overflow-hidden p-5 text-white not_connected items-center justify-center'>
+            <div className='p-5 text-white not_connected items-center justify-center'>
                 {/* Movies */}
-                <div className='flex flex-row align-bottom'>
+                <div className='flex flex-row align-bottom '>
                     <h1 className='text-2xl'>Movies selection</h1>
                     <Link to='/movies' className='ml-auto'>
                         <button className='text-red-600 ml-auto transition hover:scale-110'>See all <span className='text-3xl pb-1'> > </span></button>
                     </Link>
                 </div>
-                <div className='overflow-x-visible w-full pt-3 px-6'>
-                    <Swiper slidesPerView={7} className=''>
+                <div className='mx-10'>
+                    <Swiper {...swiperParams} slidesPerView={7} >
                         {this.state.movies.map(movie => (
-                            <SwiperSlide className='flex-shrink-0 transition hover:scale-110'>
-                                <div key={movie.show_id} className=''>
-                                    <h1 className='text-lg truncate w-52'>{movie.title}</h1>
-                                    <img alt={String(movie.show_id)} className='object-cover w-56 h-80' src={movie.picture} />
-                                </div>
+                            <SwiperSlide key={movie.show_id} className='flex-shrink-0'>
+                                <h1 className='text-lg truncate w-52'>{movie.title}</h1>
+                                <img alt={String(movie.show_id)} className='object-cover w-56 h-80' src={movie.picture} />
                             </SwiperSlide>
                         ))}
                     </Swiper>
                 </div>
-
                 {/* Tv_Shows */}
                 <div className='flex flex-row align-bottom pt-5'>
                     <h1 className='text-2xl'>TV Shows selection</h1>
@@ -78,14 +78,12 @@ export class Loggedin extends React.Component {
                         <button className='text-red-600 transition hover:scale-110'>See all <span className='text-3xl pb-1'> > </span></button>
                     </Link>
                 </div>
-                <div className='child pt-3 px-6'>
-                    <Swiper slidesPerView={7}>
+                <div className='mx-10'>
+                    <Swiper slidesPerView={7} >
                         {this.state.tv_shows.map(tv_show => (
-                            <SwiperSlide className='flex-shrink-0 transition hover:scale-110'>
-                                <div key={tv_show.show_id} className=''>
-                                    <h1 className='text-lg truncate w-52'>{tv_show.title}</h1>
-                                    <img className='object-cover w-56 h-80' src={tv_show.picture} alt={String(tv_show.show_id)} />
-                                </div>
+                            <SwiperSlide key={tv_show.show_id}  className='flex-shrink-0'>
+                                <h1 className='text-lg truncate w-52'>{tv_show.title}</h1>
+                                <img className='object-cover w-56 h-80' src={tv_show.picture} alt={String(tv_show.show_id)} />
                             </SwiperSlide>
                         ))}
                     </Swiper>
