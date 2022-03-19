@@ -1,7 +1,8 @@
 const express = require('express');
 const router = express.Router();
 
-const { get_all_films, get_film_by_type } = require('./films.query')
+const { get_all_films, get_film_by_type, get_film_by_id } = require('./films.query');
+const { check_id } = require('../../middleware/notFound');
 
 router.get('/', (req, res, next) => {
     get_all_films(res);
@@ -21,6 +22,10 @@ router.get('/movies', (req, res, next) => {
 
 router.get('/tv_shows', (req, res, next) => {
     res.status(200).json({ msg: 'tv shows' });
+});
+
+router.get('/:id', check_id, (req, res, next) => {
+    get_film_by_id(res, req.params.id);
 });
 
 module.exports = router;

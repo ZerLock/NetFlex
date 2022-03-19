@@ -31,6 +31,14 @@ span {
     margin-left: 50%;
 }
 
+.cover_picture {
+    margin-top: 8%;
+}
+
+.cover_movie {
+    margin-left: -7%;
+}
+
 :root {
     --toastify-icon-color-error: '#c0c0c0';
 }

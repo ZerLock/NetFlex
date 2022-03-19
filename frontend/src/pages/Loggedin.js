@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 import 'swiper/css';
@@ -10,8 +10,17 @@ export class Loggedin extends React.Component {
         super(props);
         this.state = {
             movies: [],
-            tv_shows: []
+            tv_shows: [],
+            redirect_to_movie: false,
+            movie_id_selected: -1,
         };
+        this.handleSubmitMovie = this.handleSubmitMovie.bind(this);
+    }
+
+    handleSubmitMovie(event, id) {
+        event.preventDefault();
+        this.setState({ movie_id_selected: id });
+        this.setState({ redirect_to_movie: true });
     }
 
     componentDidMount() {
@@ -49,9 +58,8 @@ export class Loggedin extends React.Component {
     }
 
     render() {
-        const swiperParams = {
-            mousewheel: true
-        }
+        if (this.state.redirect_to_movie)
+            return <Navigate to={`/movie/${this.state.movie_id_selected}`} />
         return (
             <div className='p-5 text-white not_connected items-center justify-center'>
                 {/* Movies */}
@@ -62,11 +70,13 @@ export class Loggedin extends React.Component {
                     </Link>
                 </div>
                 <div className='mx-10'>
-                    <Swiper {...swiperParams} slidesPerView={7} >
+                    <Swiper slidesPerView={7} >
                         {this.state.movies.map(movie => (
                             <SwiperSlide key={movie.show_id} className='flex-shrink-0'>
-                                <h1 className='text-lg truncate w-52'>{movie.title}</h1>
-                                <img alt={String(movie.show_id)} className='object-cover w-56 h-80' src={movie.picture} />
+                                <button onClick={e => this.handleSubmitMovie(e, movie.id)}>
+                                    <h1 className='text-lg truncate w-52'>{movie.title}</h1>
+                                    <img alt={String(movie.show_id)} className='object-cover w-56 h-80' src={movie.picture} />
+                                </button>
                             </SwiperSlide>
                         ))}
                     </Swiper>
@@ -79,11 +89,13 @@ export class Loggedin extends React.Component {
                     </Link>
                 </div>
                 <div className='mx-10'>
-                    <Swiper slidesPerView={7} >
+                    <Swiper slidesPerView={7}>
                         {this.state.tv_shows.map(tv_show => (
                             <SwiperSlide key={tv_show.show_id}  className='flex-shrink-0'>
-                                <h1 className='text-lg truncate w-52'>{tv_show.title}</h1>
-                                <img className='object-cover w-56 h-80' src={tv_show.picture} alt={String(tv_show.show_id)} />
+                                <button>
+                                    <h1 className='text-lg truncate w-52'>{tv_show.title}</h1>
+                                    <img className='object-cover w-56 h-80' src={tv_show.picture} alt={String(tv_show.show_id)} />
+                                </button>
                             </SwiperSlide>
                         ))}
                     </Swiper>
