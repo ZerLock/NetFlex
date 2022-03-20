@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import get_started from '../assets/get_started.png';
+import { valideEmail } from '../js/regex';
 
 export function NotConnected() {
 
@@ -9,7 +10,7 @@ export function NotConnected() {
 
     let navigate = useNavigate();
     function isValidForm() {
-        return email.length > 0 && email.indexOf('@') >= 0 && email.split('@').length === 2;
+        return email.length > 0 && valideEmail.test(email);
     }
 
     function handleSumbitForm(event) {

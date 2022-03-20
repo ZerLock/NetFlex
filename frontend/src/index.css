@@ -39,6 +39,13 @@ span {
     margin-left: -7%;
 }
 
+
+.landing_page {
+    background: linear-gradient(to top, transparent, #141414),
+        url('./assets/background_404page.jpg');
+    background-size: cover;
+}
+
 :root {
     --toastify-icon-color-error: '#c0c0c0';
 }

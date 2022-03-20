@@ -6,6 +6,7 @@ import { ConnectionNavbar } from './Navbar';
 
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { valideEmail, validPassword } from '../js/regex';
 
 class Login extends React.Component {
 
@@ -23,7 +24,7 @@ class Login extends React.Component {
     validateFormLogin() {
         let email = this.state.email;
         let password = this.state.password;
-        return email.length > 0 && password.length > 0 && email.indexOf('@') >= 0 && email.split('@').length === 2;
+        return email.length > 0 && password.length > 0 && valideEmail.test(email);
     }
 
     handleSubmitLogin(event) {

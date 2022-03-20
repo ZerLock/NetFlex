@@ -5,6 +5,7 @@ import { ConnectionNavbar } from './Navbar';
 
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'
+import { valideEmail } from '../js/regex';
 
 class Register extends React.Component {
 
@@ -37,7 +38,7 @@ class Register extends React.Component {
         let nickname = this.state.nickname;
         let email = this.state.email;
         let password = this.state.password;
-        return firstname.length > 0 && name.length > 0 && nickname.length > 0 && email.length > 0 && password.length > 0 && email.indexOf('@') >= 0 && email.split('@').length === 2;
+        return firstname.length > 0 && name.length > 0 && nickname.length > 0 && email.length > 0 && password.length > 0 && valideEmail.test(email);
     }
 
     handleSubmitRegister(event) {

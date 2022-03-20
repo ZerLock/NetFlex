@@ -11,6 +11,7 @@ class Moviepage extends React.Component {
             movie: {},
             listedin_split: '',
             redirect_to_home: false,
+            redirect_to_landing: false,
         }
     }
 
@@ -28,20 +29,29 @@ class Moviepage extends React.Component {
             }),
             mode: 'cors',
         })
-        .then(response => response.json()
-        .then(movies => {
-            console.log()
-            this.setState({ movie: movies[0] })
-            if (!movies[0]) {
-                this.setState({ redirect_to_home: true });
-                this.setState({ listedin_split: movies[0].listed_in.split(', ') });
+        .then(response => {
+            if (!response.ok) {
+                this.setState({ redirect_to_landing: true });
+            } else {
+                response.json()
+                .then(movies => {
+                    console.log()
+                    this.setState({ movie: movies[0] })
+                    if (!movies[0]) {
+                        this.setState({ redirect_to_landing: true });
+                        console.log("landing page return !");
+                    }
+                    this.setState({ listedin_split: movies[0].listed_in.split(', ') });
+                });
             }
-        }))
+        });
     }
 
     render() {
         if (this.state.redirect_to_home)
             return <Navigate to='/' />
+        if (this.state.redirect_to_landing)
+            return <Navigate to='/landing' />
         return (
             <div className='w-screen h-screen mx-auto text-white bg-[#141414]'>
                 <HomeNavbar />

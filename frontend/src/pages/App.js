@@ -19,6 +19,11 @@ function App() {
                 <Route path='/tvshows' element={<Tvshow />} />
                 <Route path='/movie/:id' element={<Moviepage />} />
                 <Route path='/landing' element={<Landing />} />
+
+                {/* 404 Not Found page */}
+                <Route element={<Landing />} />
+                <Route path='*' element={<Landing />} />
+                <Route path='' element={<Landing />} />
             </Routes>
         </BrowserRouter>
     );
