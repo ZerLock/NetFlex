@@ -7,6 +7,7 @@ import Movies from './Movies';
 import Tvshow from './Tvshow';
 import Landing from './Landing';
 import Moviepage from './Moviepage';
+import Browse from './Browse';
 
 function App() {
     return (
@@ -19,6 +20,7 @@ function App() {
                 <Route path='/tvshows' element={<Tvshow />} />
                 <Route path='/movie/:id' element={<Moviepage />} />
                 <Route path='/landing' element={<Landing />} />
+                <Route path='/browse/:search' element={<Browse />} />
 
                 {/* 404 Not Found page */}
                 <Route element={<Landing />} />

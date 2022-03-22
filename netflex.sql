@@ -31,5 +31,6 @@ CREATE TABLE IF NOT EXISTS films
     listed_in VARCHAR(100) NOT NULL,
     description text NOT NULL,
     picture text NOT NULL,
+    FULLTEXT (title, description, cast),
     PRIMARY KEY (id)
 );

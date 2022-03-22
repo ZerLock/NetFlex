@@ -3,6 +3,7 @@ import { Link, Navigate } from 'react-router-dom';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 import 'swiper/css';
+import isConnected from '../js/isConnected';
 
 export class Loggedin extends React.Component {
 
@@ -24,37 +25,37 @@ export class Loggedin extends React.Component {
     }
 
     componentDidMount() {
-        let movie_body = {
-            type: 'Movie'
+
+        if(isConnected()) {
+            let movie_body = {
+                type: 'Movie'
+            }
+            let tv_show_body = {
+                type: 'TV Show'
+            }
+            fetch('http://localhost:5001/films/type', {
+                method: 'POST',
+                headers: new Headers({
+                    'Authorization': `Bearer ${localStorage.getItem('user_token')}`,
+                    'Content-Type': 'application/json'
+                }),
+                mode: 'cors',
+                body: JSON.stringify(movie_body)
+            })
+            .then(response => response.json())
+            .then(movies => this.setState({ movies: movies }));
+            fetch('http://localhost:5001/films/type', {
+                method: 'POST',
+                headers: new Headers({
+                    'Authorization': `Bearer ${localStorage.getItem('user_token')}`,
+                    'Content-Type': 'application/json'
+                }),
+                mode: 'cors',
+                body: JSON.stringify(tv_show_body)
+            })
+            .then(response => response.json())
+            .then(tv_shows => this.setState({ tv_shows: tv_shows }));
         }
-
-        let tv_show_body = {
-            type: 'TV Show'
-        }
-
-        fetch('http://localhost:5001/films/type', {
-            method: 'POST',
-            headers: new Headers({
-                'Authorization': `Bearer ${localStorage.getItem('user_token')}`,
-                'Content-Type': 'application/json'
-            }),
-            mode: 'cors',
-            body: JSON.stringify(movie_body)
-        })
-        .then(response => response.json())
-        .then(movies => this.setState({ movies: movies }));
-
-        fetch('http://localhost:5001/films/type', {
-            method: 'POST',
-            headers: new Headers({
-                'Authorization': `Bearer ${localStorage.getItem('user_token')}`,
-                'Content-Type': 'application/json'
-            }),
-            mode: 'cors',
-            body: JSON.stringify(tv_show_body)
-        })
-        .then(response => response.json())
-        .then(tv_shows => this.setState({ tv_shows: tv_shows }));
     }
 
     render() {

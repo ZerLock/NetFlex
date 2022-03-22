@@ -8,7 +8,7 @@ exports.get_all_films = (res) => {
 };
 
 exports.get_film_by_type = (res, type) => {
-    db.execute('SELECT * FROM `films` WHERE type = ? ORDER BY RAND() LIMIT 60', [type], (error, results, fields) => {
+    db.execute('SELECT * FROM `films` WHERE `type` = ? ORDER BY RAND() LIMIT 60', [type], (error, results, fields) => {
         if (error) return res.status(500).json({ msg: 'internal server error' });
         res.status(200).json( results );
     });
@@ -17,6 +17,13 @@ exports.get_film_by_type = (res, type) => {
 exports.get_film_by_id = (res, id) => {
     db.execute('SELECT * FROM `films` WHERE `id` = ?', [id], (error, results, fields) => {
         if (error) return res.status(500).json({ msg: 'internal server error' });
+        res.status(200).json( results );
+    });
+}
+
+exports.get_all_by_search = (res, search) => {
+    db.execute('SELECT * FROM `films` WHERE MATCH (title, description, cast) AGAINST (?)', [search], (error, results, fields) => {
+        if (error) return res.status(500).json({ msg: 'internal server error (sql request)' });
         res.status(200).json( results );
     });
 }

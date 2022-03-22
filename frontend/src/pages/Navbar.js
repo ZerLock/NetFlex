@@ -1,12 +1,15 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { isExpired } from 'react-jwt';
 
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import logo from '../assets/logo.png';
-import search from '../assets/search.png';
+import search from '../assets/search.png'
 
 export function HomeNavbar() {
+
+    const [search_str, setSearch] = useState('');
+    const [browse, setBrowse] = useState('');
 
     function isConnected() {
         if (!localStorage.getItem('user_token')) {
@@ -18,6 +21,19 @@ export function HomeNavbar() {
             else
                 return (true);
         }
+    }
+
+    const navigate = useNavigate();
+    function handleSubmit(event)
+    {
+        event.preventDefault();
+        if (search_str.length > 0)
+            navigate(`/browse/${search_str}`);
+    }
+
+    function handleChange(event)
+    {
+        setSearch(event.target.value);
     }
 
     return (
@@ -44,16 +60,16 @@ export function HomeNavbar() {
             </ul>
             <ul className='ml-auto flex items-center space-x-4'>
                 <li>
-                    <input type='text' disabled={!isConnected()} placeholder="Search" className='w-80 px-2 focus:outline-none border-b-2 placeholder-white-600 border-white bg-transparent' />
+                    <input type='text' onChange={handleChange} disabled={!isConnected()} placeholder="Search" className='w-80 px-2 focus:outline-none border-b-2 placeholder-white-600 border-white bg-transparent' />
                 </li>
                 <li>
-                    <button disabled={!isConnected()} className='transition hover:-transition-y-1 hover:duration-300 hover:scale-110 ease-in-out' >
+                    <button onClick={handleSubmit} disabled={!isConnected()} className='transition hover:-transition-y-1 hover:duration-300 hover:scale-110 ease-in-out' >
                         <img alt='search button' src={search} className='h-6' />
                     </button>
                 </li>
-                <Link to='/'>
+                <Link to='/browse/*'>
                     <li>
-                        <button href='/'>Browse</button>
+                        <button href='/browse'>Browse</button>
                     </li>
                 </Link>
                 <Link to='/login'>
