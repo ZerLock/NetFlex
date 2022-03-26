@@ -19,7 +19,7 @@ exports.register = (res, firstname, name, nickname, email, password) => {
 };
 
 exports.login = (res, email, password) => {
-    db.execute('SELECT * FROM `user` WHERE `email` = ?', [email], (error, results, fields) => {
+    db.execute('SELECT `password` FROM `user` WHERE `email` = ?', [email], (error, results, fields) => {
         if (results.length != 1 || error)
             return res.status(500).json({ msg: 'internal server error (db request)' });
         bcrypt.compare(password, results[0].password)

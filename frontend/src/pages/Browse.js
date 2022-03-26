@@ -39,7 +39,8 @@ class Browse extends React.Component {
             })
             .then(response => response.json())
             .then(movies => {
-                this.setState({ results: movies });
+                this.setState({ result: movies });
+                console.log(movies);
             });
         }
     }
@@ -51,6 +52,11 @@ class Browse extends React.Component {
             <div className='w-screen h-screen mx-auto text-white bg-[#141414]'>
                 <HomeNavbar />
                 <h1>Results for : {this.state.search_str}</h1>
+                <div>
+                    {this.state.result.map(movie => (
+                        <h1>{movie.title}</h1>
+                    ))}
+                </div>
             </div>
         );
     }
