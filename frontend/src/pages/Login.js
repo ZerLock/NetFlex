@@ -1,4 +1,3 @@
-// import { localStorage } from 'node-localstorage';
 import React from 'react';
 import { Link, Navigate } from 'react-router-dom';
 

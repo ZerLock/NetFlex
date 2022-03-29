@@ -56,7 +56,7 @@ export class Loggedin extends React.Component {
             .then(response => response.json())
             .then(tv_shows => this.setState({ tv_shows: tv_shows }));
         }
-    }
+    }   
 
     render() {
         if (this.state.redirect_to_movie)
@@ -93,7 +93,7 @@ export class Loggedin extends React.Component {
                     <Swiper slidesPerView={7}>
                         {this.state.tv_shows.map(tv_show => (
                             <SwiperSlide key={tv_show.show_id}  className='flex-shrink-0'>
-                                <button>
+                                <button onClick={e => this.handleSubmitMovie(e, tv_show.id)}>
                                     <h1 className='text-lg truncate w-52'>{tv_show.title}</h1>
                                     <img className='object-cover w-56 h-80' src={tv_show.picture} alt={String(tv_show.show_id)} />
                                 </button>

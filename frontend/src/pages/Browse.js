@@ -10,7 +10,7 @@ class Browse extends React.Component {
         super(props);
         this.state = {
             search_str: '',
-            result: {},
+            result: [],
             isLoggedIn: isConnected(),
         };
     }
@@ -49,12 +49,15 @@ class Browse extends React.Component {
         if (!this.state.isLoggedIn)
             return <Navigate to='/' />
         return (
-            <div className='w-screen h-screen mx-auto text-white bg-[#141414]'>
+            <div className='w-screen mx-auto text-white bg-[#141414]'>
                 <HomeNavbar />
                 <h1>Results for : {this.state.search_str}</h1>
-                <div>
+                <div className=''>
                     {this.state.result.map(movie => (
-                        <h1>{movie.title}</h1>
+                        <div className='flex-shrink-0'>
+                            <h1 className='text-lg truncate w-52'>{movie.title}</h1>
+                            <img className='object-cover w-56 h-80' src={movie.picture} alt={String(movie.show_id)} />
+                        </div>
                     ))}
                 </div>
             </div>
