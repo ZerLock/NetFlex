@@ -12,8 +12,31 @@ export default class Movies extends React.Component {
         this.state = {
             isLoggedIn: isConnected(),
             filter: 'Genre',
+            movies: [],
         };
         this.handleChange = this.handleChange.bind(this);
+    }
+
+    componentDidMount() {
+        if (this.state.isLoggedIn) {
+            let movie_body = {
+                type: "Movie"
+            };
+
+            fetch("http://localhost:5001/films/type", {
+                method: "POST",
+                headers: new Headers({
+                    "Authorization": `Bearer ${localStorage.getItem("user_token")}`,
+                    "Content-Type": "application/json"
+                }),
+                mode: "cors",
+                body: JSON.stringify(movie_body)
+            })
+            .then(response => response.json())
+            .then(movies => {
+                this.setState({ movies: movies });
+            });
+        }
     }
 
     handleChange(event) {
@@ -36,8 +59,13 @@ export default class Movies extends React.Component {
                             <option value='romantic'>Romantic</option>
                         </select>
                     </div>
-                    <div id='movies' className='m-2'>
-                        <h1 className='text-8xl'>Bonsoir je suis un film</h1>
+                    <div id='movies' className='grid grid-cols-5 w-screen'>
+                        {this.state.movies.map(movie => (
+                            <div className='flex-shrink-0'>
+                                <h1 className='text-lg truncate w-52'>{movie.title}</h1>
+                                <img className='object-cover w-56 h-80' src={movie.picture} alt={String(movie.show_id)} />
+                            </div>
+                        ))}
                     </div>
                 </div>
             </div>
