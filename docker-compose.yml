@@ -1,0 +1,59 @@
+version: "3"
+services:
+
+  db:
+    image: mysql:5.7
+    restart: always
+    networks:
+      - back_tier
+      - front_tier
+    volumes:
+      - "db-data:/var/lib/mysql"
+      - "./netflex.sql:/docker-entrypoint-initdb.d/netflex.sql"
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_ALLOW_EMPTY_PASSWORD=no
+      - MYSQL_RANDOM_ROOT_PASSWORD=no
+      - MYSQL_HOST=localhost
+      - MYSQL_PASSWORD=root
+      - MYSQL_DATABASE=netflex
+
+  redis:
+    image: redis
+    restart: always
+    ports:
+      - "6379:6379"
+    depends_on:
+      - db
+    networks:
+      - front_tier
+      - back_tier
+
+  backend:
+    build: ./backend
+    restart: always
+    ports:
+      - "5001:5001"
+    depends_on:
+      - redis
+    networks:
+      - front_tier
+      - back_tier
+  
+  frontend:
+    build: ./frontend
+    restart: always
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+    networks:
+      - front_tier
+      - back_tier
+
+networks:
+  front_tier:
+  back_tier:
+
+volumes:
+  db-data:
