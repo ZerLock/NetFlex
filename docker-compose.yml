@@ -39,7 +39,7 @@ services:
     networks:
       - front_tier
       - back_tier
-  
+
   frontend:
     build: ./frontend
     restart: always

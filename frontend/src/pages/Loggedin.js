@@ -56,7 +56,7 @@ export class Loggedin extends React.Component {
             .then(response => response.json())
             .then(tv_shows => this.setState({ tv_shows: tv_shows }));
         }
-    }   
+    }
 
     render() {
         if (this.state.redirect_to_movie)

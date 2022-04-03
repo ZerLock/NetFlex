@@ -9,7 +9,6 @@ import search from '../assets/search.png'
 export function HomeNavbar() {
 
     const [search_str, setSearch] = useState('');
-    const [browse, setBrowse] = useState('');
 
     function isConnected() {
         if (!localStorage.getItem('user_token')) {

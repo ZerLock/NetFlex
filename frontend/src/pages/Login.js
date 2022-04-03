@@ -5,7 +5,7 @@ import { ConnectionNavbar } from './Navbar';
 
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { valideEmail, validPassword } from '../js/regex';
+import { valideEmail } from '../js/regex';
 
 class Login extends React.Component {
 

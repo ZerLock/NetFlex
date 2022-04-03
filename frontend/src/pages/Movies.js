@@ -47,7 +47,7 @@ export default class Movies extends React.Component {
         if (!this.state.isLoggedIn)
             return <Navigate to='/' />
         return (
-            <div className='w-screen h-screen mx-auto text-white bg-[#141414]'>
+            <div className='w-screen mb-5 mx-auto text-white bg-[#141414]'>
                 <HomeNavbar />
                 <div className='m-4'>
                     <div className='flex flex-row'>
