@@ -8,6 +8,8 @@ import Tvshow from './Tvshow';
 import Landing from './Landing';
 import Moviepage from './Moviepage';
 import Browse from './Browse';
+import Account from './Account';
+import Myaccount from './Myaccount';
 
 function App() {
     return (
@@ -16,6 +18,8 @@ function App() {
                 <Route path="/" element={<Home />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
+                <Route path="/account" element={<Account />} />
+                <Route path="/myaccount" element={<Myaccount />} />
                 <Route path="/movies" element={<Movies />} />
                 <Route path='/tvshows' element={<Tvshow />} />
                 <Route path='/movie/:id' element={<Moviepage />} />

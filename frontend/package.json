@@ -10,6 +10,7 @@
     "axios": "^0.26.0",
     "buffer": "^6.0.3",
     "constants": "^0.0.2",
+    "crypto": "^1.0.1",
     "fs": "^0.0.1-security",
     "notiflix": "^3.2.5",
     "path": "^0.12.7",

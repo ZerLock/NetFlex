@@ -36,3 +36,11 @@ exports.login = (res, email, password) => {
             .catch(() => res.status(500).json({ msg: 'internal server error (bad password)' }));
     });
 };
+
+exports.get_user_by_id = (res, id) => {
+    console.log("ID", id);
+    db.execute('SELECT * FROM `user` WHERE `id` = ?', [id], (error, results, fields) => {
+        // if (error) return res.status(501).json({ msg: 'internal server error (db request)' });
+        res.status(200).json( results[0] );
+    });
+};
