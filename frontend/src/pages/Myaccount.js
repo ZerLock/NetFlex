@@ -13,6 +13,7 @@ class Myaccount extends React.Component {
             user: []
         };
         this.handleSubmitDeconnection = this.handleSubmitDeconnection.bind(this);
+        this.handleSubmitDelete = this.handleSubmitDelete.bind(this);
     }
 
     componentDidMount() {
@@ -27,10 +28,7 @@ class Myaccount extends React.Component {
                     mode: 'cors'
                 })
                 .then(response => response.json())
-                .then(data => {
-                    console.log(data);
-                    this.setState({ user: data })
-                });
+                .then(data => this.setState({ user: data }));
         }
     }
 
@@ -40,21 +38,33 @@ class Myaccount extends React.Component {
         localStorage.removeItem('user_token');
     }
 
+    handleSubmitDelete(event) {
+        event.preventDefault();
+        console.log("delete");
+    }
+
     render() {
         if (!this.state.isLoggedIn)
             return <Navigate to="/login" />;
         return (
-            <div className='w-screen h-screen mx-auto text-white text-2xl bg-[#141414]'>
+            <div className='w-screen background h-screen mx-auto text-white text-2xl bg-[#141414]'>
                 <ConnectionNavbar />
                 <div className='grid place-items-center not_connected'>
                     <div className='p-5 bg-[#303030] h-2/3 w-1/4 rounded-lg'>
                         <div className='grid place-items-center'>
-                            <h1>Welcome back, {this.state.user.nickname}!</h1>
-                            <h1>Informations !</h1>
+                            <h1>Welcome back, {this.state.user.nickname} !</h1>
+                            <h1>Firstname : {this.state.user.firstname}</h1>
+                            <h1>Name : {this.state.user.name}</h1>
+                            <h1>Email : {this.state.user.email}</h1>
 
-                            <button onClick={this.handleSubmitDeconnection} className='px-5 py-3 bg-[#d81f26] rounded-lg'>
-                                Deconnection
-                            </button>
+                            <div className='grid grid-cols-2 space-x-5'>
+                                <button onClick={this.handleSubmitDeconnection} className='px-5 py-3 rounded-lg bg-gradient-to-r from-[#d71f26] to-[#8b1418] hover:from-[#d15156] hover:to-[#d71f26]'>
+                                    Deconnection
+                                </button>
+                                <button onClick={this.handleSubmitDelete} className='px-5 py-3 rounded-lg bg-gradient-to-r from-[#d71f26] to-[#8b1418] hover:from-[#d15156] hover:to-[#d71f26]'>
+                                    Delete
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>

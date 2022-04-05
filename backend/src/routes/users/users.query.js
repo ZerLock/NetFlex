@@ -19,7 +19,7 @@ exports.register = (res, firstname, name, nickname, email, password) => {
 };
 
 exports.login = (res, email, password) => {
-    db.execute('SELECT `password` FROM `user` WHERE `email` = ?', [email], (error, results, fields) => {
+    db.execute('SELECT `id`, `password` FROM `user` WHERE `email` = ?', [email], (error, results, fields) => {
         if (results.length != 1 || error)
             return res.status(500).json({ msg: 'internal server error (db request)' });
         bcrypt.compare(password, results[0].password)
@@ -38,9 +38,8 @@ exports.login = (res, email, password) => {
 };
 
 exports.get_user_by_id = (res, id) => {
-    console.log("ID", id);
     db.execute('SELECT * FROM `user` WHERE `id` = ?', [id], (error, results, fields) => {
-        // if (error) return res.status(501).json({ msg: 'internal server error (db request)' });
+        if (error) return res.status(501).json({ msg: 'internal server error (db request)' });
         res.status(200).json( results[0] );
     });
 };
