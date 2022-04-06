@@ -5,9 +5,8 @@ const bcrypt = require('bcrypt');
 exports.register = (res, firstname, name, nickname, email, password) => {
     db.execute('INSERT INTO `user` (firstname, name, nickname, email, password) VALUES (?, ?, ?, ?, ?)', [firstname, name, nickname, email, password], (error, results, fields) => {
         if (error) {
-            if (error.code == 'ER_DUP_ENTRY') res.status(401).json({ msg: 'accound already exists' });
-            else res.status(500).json({ msg: 'internal server error (db request)' });
-            return;
+            if (error.code == 'ER_DUP_ENTRY') return res.status(401).json({ msg: 'accound already exists' });
+            return res.status(500).json({ msg: 'internal server error (db request)' });
         }
         const token = jwt.sign(
             { id: results.insertId },
@@ -39,7 +38,22 @@ exports.login = (res, email, password) => {
 
 exports.get_user_by_id = (res, id) => {
     db.execute('SELECT * FROM `user` WHERE `id` = ?', [id], (error, results, fields) => {
-        if (error) return res.status(501).json({ msg: 'internal server error (db request)' });
+        if (error) return res.status(500).json({ msg: 'internal server error (db request)' });
         res.status(200).json( results[0] );
+    });
+};
+
+exports.delete_user_by_id = (res, id) => {
+    db.execute('DELETE FROM `user` WHERE `id` = ?', [id], (error, results, fields) => {
+        if (error) return res.status(500).json({  msg: 'internal server error (db request)' });
+        res.status(200).json({ msg: 'user deleted' });
+    });
+};
+
+exports.change_user_profile_image = (res, url, id) => {
+    db.execute('UPDATE `user` SET `image_url` = ? WHERE `id` = ?', [url, id], (error, results, fields) => {
+        if (error) return res.status(500).json({ msg: 'internal server error (db request)' });
+        console.log(results);
+        res.status(200).json( results );
     });
 };

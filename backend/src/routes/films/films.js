@@ -5,6 +5,7 @@ const { get_all_films, get_film_by_type, get_film_by_id, get_all_by_search } = r
 const { check_id } = require('../../middleware/notFound')
 
 const { validSearch } = require("../../config/regex");
+const { is_good_data } = require('../../middleware/datas');
 
 router.get('/', (req, res, next) => {
     get_all_films(res);
@@ -33,7 +34,7 @@ router.get('/:id', check_id, (req, res, next) => {
 router.post('/browse', (req, res, next) => {
     const search = req.body.search;
 
-    if (!search || !validSearch.test(search))
+    if (!is_good_data(search) || !validSearch.test(search))
         return res.status(400).json({ msg: 'bad entries' });
     get_all_by_search(res, search);
 });

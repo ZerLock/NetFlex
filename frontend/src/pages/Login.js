@@ -57,6 +57,7 @@ class Login extends React.Component {
                         draggable: true,
                         progress: undefined,
                     });
+                    console.log("bonsoir");
                     this.setState({ email: '' });
                     this.setState({ password: '' });
                 }
