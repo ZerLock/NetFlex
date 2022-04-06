@@ -66,6 +66,48 @@ CREATE TABLE IF NOT EXISTS films
 );
 ```
 
+## Installation
+
+- At the root of the project
+```bash
+cat netflex.sql | mysql -u root -p
+```
+
+- In ./backend directory
+Install all the dependencies:
+```bash
+npm install
+```
+
+Import films from movies.json into the database:
+```bash
+node json_to_db.js
+```
+(You can use Ctrl-C after the database connection message in the terminal)
+
+Then, start API:
+
+with Nodemon:
+```bash
+npm run dev
+```
+or:
+```bash
+npm run start
+```
+
+- In ./frontend directory
+Install all the dependencies:
+```
+npm install
+```
+
+then, start the react app:
+```bash
+npm start
+```
+React will automatically redirect you to the home page of the website
+
 ## Routes Backend *(en développement)*
 |Route|Method|Protected|Description|
 |-----|------|---------|-----------|
