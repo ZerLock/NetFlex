@@ -100,12 +100,12 @@ or (if you use Nodemon) :
 cd backend
 npm run dev
 ```
-<br/>
-Then, start the react application :
+Then, start the React application :
 ```bash
 cd frontend
 npm start
 ```
+
 React will automatically redirect you to the home page of the website (localhost:3000)
 
 ## Routes Backend *(en développement)*
