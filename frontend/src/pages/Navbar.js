@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import { isExpired } from 'react-jwt';
 
 import { Link, useNavigate } from 'react-router-dom';
@@ -9,6 +9,7 @@ import search from '../assets/search.png'
 export function HomeNavbar() {
 
     const [search_str, setSearch] = useState('');
+    const [image_url, setImageUrl] = useState('');
 
     function isConnected() {
         if (!localStorage.getItem('user_token')) {
@@ -16,11 +17,26 @@ export function HomeNavbar() {
         } else {
             const isTokenExpired = isExpired(localStorage.getItem('user_token'));
             if (isTokenExpired)
-                return (false);
+            return (false);
             else
-                return (true);
+            return (true);
         }
     }
+
+    useEffect(() => {
+        if (isConnected()) {
+            fetch('http://localhost:5001/user', {
+                method: 'GET',
+                headers: new Headers({
+                    'Authorization': `Bearer ${localStorage.getItem('user_token')}`,
+                    'Content-Type': 'application/json'
+                }),
+                mode: 'cors'
+            })
+            .then(response => response.json())
+            .then(image_url => setImageUrl(image_url.image_url));
+        }
+    });
 
     const navigate = useNavigate();
     function handleSubmit(event)
@@ -36,24 +52,24 @@ export function HomeNavbar() {
     }
 
     return (
-        <nav className='flex items-center p-4 bg-[#202020]' >
+        <nav className='flex items-center w-screen p-4 bg-[#202020]' >
             <Link to="/">
                 <img className='h-10' src={logo} alt='logo' />
             </Link>
             <ul className='ml-6 flex items-center space-x-4'>
                 <Link to='/movies'>
                     <li className='transition hover:scale-110'>
-                        <button>Movies</button>
+                        <button title='See all movies'>Movies</button>
                     </li>
                 </Link>
                 <Link to='/tvshows'>
                     <li className='transition hover:scale-110'>
-                        <button>TV Shows</button>
+                        <button title='See all tv shows'>TV Shows</button>
                     </li>
                 </Link>
                 <Link to='mylist'>
                     <li className='transition hover:scale-110'>
-                        <button>My List</button>
+                        <button title='List of favourite movies'>My List</button>
                     </li>
                 </Link>
             </ul>
@@ -62,20 +78,24 @@ export function HomeNavbar() {
                     <input type='text' onChange={handleChange} disabled={!isConnected()} placeholder="Search" className='w-80 px-2 focus:outline-none border-b-2 placeholder-white-600 border-white bg-transparent' />
                 </li>
                 <li>
-                    <button onClick={handleSubmit} disabled={!isConnected()} className='transition hover:-transition-y-1 hover:duration-300 hover:scale-110 ease-in-out' >
+                    <button title='Search movie and tv show' onClick={handleSubmit} disabled={!isConnected()} className='transition hover:-transition-y-1 hover:duration-300 hover:scale-110 ease-in-out' >
                         <img alt='search button' src={search} className='h-6' />
                     </button>
                 </li>
                 <Link to='/browse/*'>
                     <li>
-                        <button href='/browse'>Browse</button>
+                        <button title='See all movies and tv shows' >Browse</button>
                     </li>
                 </Link>
                 <Link to='/account'>
                     <li>
-                        <button className='bg-[#404040] rounded-lg p-2 px-4 hover:bg-[#505050] ring-white active:bg-[#353535]' >
-                            {!isConnected() ? "Sign In" : "Account"}
-                        </button>
+                        {!isConnected() ?
+                                <button title='Sign into NetFlex' className='bg-[#404040] rounded-lg p-2 px-4 hover:bg-[#505050] ring-white active:bg-[#353535]' >Sign In</button>
+                        :
+                                <button title='Account settings' className='transition hover:scale-125'>
+                                    <img className='flex h-8' alt='user profile' src={image_url} />
+                                </button>
+                        }
                     </li>
                 </Link>
             </ul>
