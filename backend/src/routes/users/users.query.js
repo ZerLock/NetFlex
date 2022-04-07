@@ -53,7 +53,6 @@ exports.delete_user_by_id = (res, id) => {
 exports.change_user_profile_image = (res, url, id) => {
     db.execute('UPDATE `user` SET `image_url` = ? WHERE `id` = ?', [url, id], (error, results, fields) => {
         if (error) return res.status(500).json({ msg: 'internal server error (db request)' });
-        console.log(results);
         res.status(200).json( results );
     });
 };
