@@ -1,13 +1,13 @@
 # NetFlex
 
 ## Description
-Recréer une application web comme Netflix pour s'entrainer et apprendre les technos niveau soft / web
+Recreate a web application like Netflix to train and learn soft / web level technologies
 
 ## Technologies utilisées
-- Docker (pour que l'application puisse être déployable sans aucun soucis) :
-	- docker-compose => pour relier toutes les parties de l'application
-	- Dockerfile => Pour conteneuriser chaque partie de l'application
-- Postman => Pour tester l'API backend
+- Docker (deployement) :
+	- docker-compose
+	- Dockerfile
+- Postman (API tests)
 
 ### Frontend
 - ReactJS
@@ -43,6 +43,7 @@ CREATE TABLE IF NOT EXISTS user
     email VARCHAR(255) UNIQUE,
     password VARCHAR(255) NOT NULL,
     create_at DATETIME NOT NULL DEFAULT current_timestamp,
+    image_url TEXT NOT NULL DEFAULT "https://cdn-icons-png.flaticon.com/512/5089/5089983.png",
     PRIMARY KEY (id)
 );
 
@@ -62,51 +63,50 @@ CREATE TABLE IF NOT EXISTS films
     listed_in VARCHAR(100) NOT NULL,
     description text NOT NULL,
     picture text NOT NULL,
+    FULLTEXT (title, description, cast),
     PRIMARY KEY (id)
 );
 ```
 
 ## Installation
 
-- At the root of the project
+To install NetFlex at home, please follow the instructions bellow at the root of the project (The docker-compose is not yet functional):
+
+**Attention : If you are lazy just run the *``installation.sh``* script at the root of the project. Then refer to the *Quickstart* part**
+
 ```bash
 cat netflex.sql | mysql -u root -p
 ```
 
-- In ./backend directory
-Install all the dependencies:
 ```bash
+cd backend
+node json_to_db.js
 npm install
 ```
 
-Import films from movies.json into the database:
 ```bash
-node json_to_db.js
+cd frontend
+npm install
 ```
-(You can use Ctrl-C after the database connection message in the terminal)
 
-Then, start API:
-
-with Nodemon:
+## Quickstart
+Always at the root of the project, start the API (in a first terminal) :
 ```bash
-npm run dev
-```
-or:
-```bash
+cd backend
 npm run start
 ```
-
-- In ./frontend directory
-Install all the dependencies:
-```
-npm install
-```
-
-then, start the react app:
+or (if you use Nodemon) :
 ```bash
+cd backend
+npm run dev
+```
+<br/>
+Then, start the react application :
+```bash
+cd frontend
 npm start
 ```
-React will automatically redirect you to the home page of the website
+React will automatically redirect you to the home page of the website (localhost:3000)
 
 ## Routes Backend *(en développement)*
 |Route|Method|Protected|Description|
@@ -115,31 +115,80 @@ React will automatically redirect you to the home page of the website
 |/login|POST|NO|Connect a user|
 ||||
 |/films|GET|YES|Get **all** movies and tv shows in the database|
-|/type|POST|YES|Get **10** movies or tv shows depending on type given in the request body|
-|/movies|GET|YES|Get **all** movies|
-|/tv_shows|GET|YES|Get **all** tv shows|
+|/films/type|POST|YES|Get **10** movies or tv shows depending on type given in the request body|
+|/films/:id|GET|YES|Get a film by its ID|
+|/films/browse|POST|YES|Get films by keywords search|
+||||
+|/user|GET|YES|Get user information using his Token|
+|/user|DELETE|YES|Delete user using his Token|
+|/user/profile_image|PUT|YES|Change user profile picture using an image url and his token|
 
-## Routes Frontend *(en développement)*
-### **`` netflex.com/ ``**
-> Home of the website. You can register you if you are not logged in. Else you can show out selection of movies and tv shows<br/><br/>
-> *Logged In* :
-![Home Logged In](assets/home_logged_in.png)<br/><br/>
-*Not Logged In* :
+## Features Frontend *(in development)*
+<details>
+	<summary>Home page (not connected)</summary>
+> Home page when user is not connected 
 ![Home Not Logged In](assets/home_not_logged_in.png)
+</details>
 
+<details>
+	<summary>Home page (connected)</summary>
+> Home page when user is connected
+![Home Logged In](assets/home_logged_in.png)
+</details>
 
-### **``netflex.com/login``**
+<details>
+	<summary>Login page</summary>
 > Login page
 ![Login](assets/login.png)
+</details>
 
-### **``netflex.com/register``**
+<details>
+	<summary>Register page</summary>
 > Register page
 ![Register](assets/register.png)
+</details>
 
-### **``netflex.com/movies``**
-> All movies with filter
+<details>
+	<summary>Account settings (base)</summary>
+> Basic account settings page
+![AccountBasics](assets/account_basics.png)
+</details>
+
+<details>
+	<summary>Account settings (profile picture choice)</summary>
+> Account settings page when profile picture choice modal is open
+![AccountPP](assets/account_pp.png)
+</details>
+
+<details>
+	<summary>Account settings (delete account)</summary>
+> Account settings page when delete account modal is open
+![AccountDeleteModal](assets/account_delete_modal.png)
+</details>
+
+<details>
+	<summary>Movies page</summary>
+> All movies with filters
 ![Movies](assets/movies.png)
+</details>
 
-### **``netflex.com/tvshows``**
-> All tv shows with filter
-![](assets/tvshows.png)
+<details>
+	<summary>TV-Shows page</summary>
+> All TV Shows with filters
+![TV Shows](assets/tvshows.png)
+</details>
+
+<details>
+	<summary>Search results page</summary>
+> Page displayed after search a film by its title, description or casting
+![Search](assets/search_bar.png)
+</details>
+
+<details>
+	<summary>404 page</summary>
+> 404 page not found
+![404](assets/landing.png)
+</details>
+
+# Mainteners
+- [Léo Dubosclard](https://www.github.com/ZerLock)
