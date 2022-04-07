@@ -36,6 +36,10 @@ router.post('/browse', (req, res, next) => {
 
     if (!is_good_data(search) || !validSearch.test(search))
         return res.status(400).json({ msg: 'bad entries' });
+    if (search === '*') {
+        get_all_films(res);
+        return;
+    }
     get_all_by_search(res, search);
 });
 
