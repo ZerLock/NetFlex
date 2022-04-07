@@ -15,3 +15,5 @@ movies.forEach(movie => {
             console.error(err.stack);
     });
 });
+
+connection.end();
