@@ -15,7 +15,7 @@ export default function Landing()
             <div className='grid place-items-center mt-64'>
                 <h1 className='text-8xl font-bold'>Lost your way ?</h1>
                 <h1 className='mt-12 text-4xl text-center w-[70rem]'>Sorry, we can't find that page. You'll find lots to explore on the home page.</h1>
-                <button onClick={handleButtonLandingPage} className='bg-white rounded p-5 text-black text-2xl mt-12 hover:bg-gray-300 hover:opacity-70'>Netflex Home</button>
+                <button title='Back to home' onClick={handleButtonLandingPage} className='bg-white rounded p-5 text-black text-2xl mt-12 hover:bg-gray-300 hover:opacity-70'>Netflex Home</button>
             </div>
         </div>
     );
