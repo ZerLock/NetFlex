@@ -56,3 +56,20 @@ exports.change_user_profile_image = (res, url, id) => {
         res.status(200).json( results );
     });
 };
+
+exports.change_user_password = (res, new_password, old_password, id) => {
+    db.execute('SELECT `id`, `password` FROM `user` WHERE `email` = ?', [email], (error, results, fields) => {
+        if (results.length != 1 || error)
+            return res.status(500).json({ msg: 'internal server error (db request)' });
+        bcrypt.compare(password, results[0].password)
+            .then(valid => {
+                if (!valid)
+                    return res.status(401).json({ msg: 'Invalid Credentials' });
+                db.execute('UPDATE `user` SET `password` WHERE `id` = ?', [results[0].id], (err, resul, f) => {
+                    if (error) return res.status(400).json({ msg: 'internal server error' });
+                    res.status(200).json({ msg: 'password changed' });
+                });
+            })
+            .catch(() => res.status(500).json({ msg: 'internal server error (bad password)' }));
+    });
+};

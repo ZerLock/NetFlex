@@ -42,6 +42,23 @@ const DeleteModalStyle = {
     },
 }
 
+const PasswordModal = {
+    content: {
+        top: '50%',
+        left: '50%',
+        right: 'auto',
+        bottom: 'auto',
+        marginRight: '-50%',
+        transform: 'translate(-50%, -50%)',
+        backgroundColor: '#303030',
+        color: '#efefef',
+        width: '30%',
+        height: '40%',
+        borderRadius: 15,
+        overflow: 'hidden',
+    },
+}
+
 class Myaccount extends React.Component {
 
     constructor(props) {
@@ -52,6 +69,10 @@ class Myaccount extends React.Component {
             image_url: '',
             modalIsOpen: false,
             deleteConfirmationModal: false,
+            passwordModal: false,
+            old_password: '',
+            new_password: '',
+            confirmed_password: '',
         };
         this.handleSubmitDeconnection = this.handleSubmitDeconnection.bind(this);
         this.handleSubmitDelete = this.handleSubmitDelete.bind(this);
@@ -61,6 +82,9 @@ class Myaccount extends React.Component {
         this.closeModal = this.closeModal.bind(this);
         this.openDeleteModal = this.openDeleteModal.bind(this);
         this.closeDeleteModal = this.closeDeleteModal.bind(this);
+        this.openPasswordModal = this.openPasswordModal.bind(this);
+        this.closePasswordModal = this.closePasswordModal.bind(this);
+        this.handleChangeUserPassword = this.handleChangeUserPassword.bind(this);
     }
 
     componentDidMount() {
@@ -95,6 +119,17 @@ class Myaccount extends React.Component {
 
     closeModal() {
         this.setState({ modalIsOpen: false });
+    }
+
+    openPasswordModal() {
+        this.setState({ passwordModal: true });
+    }
+
+    closePasswordModal() {
+        this.setState({ old_password: '' });
+        this.setState({ new_password: '' });
+        this.setState({ confirmed_password: '' });
+        this.setState({ passwordModal: false });
     }
 
     handleSubmitDeconnection(event) {
@@ -173,6 +208,74 @@ class Myaccount extends React.Component {
         });
     }
 
+    handleChangeUserPassword(event) {
+        event.preventDefault();
+        if (this.state.new_password.length > 0 && this.state.old_password.length > 0 && this.state.confirmed_password.length > 0) {
+            if (this.state.new_password !== this.state.confirmed_password) {
+                toast.error('New password and confirmed password must be same !', {
+                    position: "bottom-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: false,
+                    draggable: true,
+                    progress: undefined,
+                });
+                return;
+            }
+
+            let body_password = {
+                old: this.state.old_password,
+                new: this.state.new_password,
+            }
+
+            fetch('http://localhost:5001/user/password', {
+                method: 'PUT',
+                headers: new Headers({
+                    'Authorization': `Bearer ${localStorage.getItem('user_token')}`,
+                    'Content-Type': 'application/json'
+                }),
+                mode: 'cors',
+                body: JSON.stringify(body_password)
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (JSON.parse(data).msg === 'internal server error') {
+                    toast.error("Can't change password", {
+                        position: "bottom-right",
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: false,
+                        draggable: true,
+                        progress: undefined,
+                    });
+                    return;
+                }
+                toast.success('Password changed !', {
+                    position: "bottom-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: false,
+                    draggable: true,
+                    progress: undefined,
+                });
+                this.closePasswordModal();
+            });
+        } else {
+            toast.error('Please, fill the form !', {
+                position: "bottom-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: false,
+                draggable: true,
+                progress: undefined,
+            });
+        }
+    }
+
     render() {
         if (!this.state.isLoggedIn)
             return <Navigate to="/login" />;
@@ -194,6 +297,7 @@ class Myaccount extends React.Component {
                                     <img className='w-52 h-52 hover:opacity-25' src={this.state.image_url} />
                                 </button>
                             </div>
+                            <button onClick={this.openPasswordModal} >Change password</button>
 
                             <div className='grid grid-cols-2 space-x-5'>
                                 <button onClick={this.handleSubmitDeconnection} title='Deconnection' className='px-5 py-3 rounded-lg bg-gradient-to-r from-[#8b1418] to-[#d71f26] hover:from-[#d71f26] hover:to-[#d15156]'>
@@ -206,6 +310,23 @@ class Myaccount extends React.Component {
                         </div>
                     </div>
                 </div>
+                <Modal
+                    isOpen={this.state.passwordModal}
+                    style={PasswordModal}
+                >
+                    <div className='text-2xl'>
+                        <div className='flex'>
+                            <h1 className='mt-2'>Change password :</h1>
+                            <button onClick={this.closePasswordModal} className='ml-auto p-2 rounded-lg hover:bg-[#202020]' >X</button>
+                        </div>
+                        <div className='space-y-3 mt-5'>
+                            <input type='password' placeholder='Old password' value={this.state.old_password} onChange={e => this.setState({ old_password: e.target.value})} className='w-full p-4 bg-transparent border-2 rounded-lg focus:outline-none' />
+                            <input type='password' placeholder='New password' value={this.state.new_password} onChange={e => this.setState({ new_password: e.target.value})} className='w-full p-4 bg-transparent border-2 rounded-lg focus:outline-none' />
+                            <input type='password' placeholder='Confirm new password' value={this.state.confirmed_password} onChange={e => this.setState({ confirmed_password: e.target.value})}  className='w-full p-4 bg-transparent border-2 rounded-lg focus:outline-none' />
+                            <button onClick={this.handleChangeUserPassword} className='px-5 py-2 rounded-lg bg-gradient-to-r from-[#d71f26] to-[#8b1418] hover:from-[#d15156] hover:to-[#d71f26]' >Confirm</button>
+                        </div>
+                    </div>
+                </Modal>
                 <Modal
                     isOpen={this.state.deleteConfirmationModal}
                     style={DeleteModalStyle}

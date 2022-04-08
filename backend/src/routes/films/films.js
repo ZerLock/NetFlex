@@ -19,14 +19,6 @@ router.post('/type', (req, res, next) => {
     get_film_by_type(res, type);
 });
 
-router.get('/movies', (req, res, next) => {
-    res.status(200).json({ msg: 'movies' })
-});
-
-router.get('/tv_shows', (req, res, next) => {
-    res.status(200).json({ msg: 'tv shows' });
-});
-
 router.get('/:id', check_id, (req, res, next) => {
     get_film_by_id(res, req.params.id);
 });
