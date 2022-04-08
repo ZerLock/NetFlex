@@ -88,6 +88,7 @@ class Myaccount extends React.Component {
     }
 
     componentDidMount() {
+        Modal.setAppElement('body');
         if (this.state.isLoggedIn) {
             fetch('http://localhost:5001/user', {
                 method: 'GET',
@@ -210,61 +211,8 @@ class Myaccount extends React.Component {
 
     handleChangeUserPassword(event) {
         event.preventDefault();
-        if (this.state.new_password.length > 0 && this.state.old_password.length > 0 && this.state.confirmed_password.length > 0) {
-            if (this.state.new_password !== this.state.confirmed_password) {
-                toast.error('New password and confirmed password must be same !', {
-                    position: "bottom-right",
-                    autoClose: 5000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: false,
-                    draggable: true,
-                    progress: undefined,
-                });
-                return;
-            }
-
-            let body_password = {
-                old: this.state.old_password,
-                new: this.state.new_password,
-            }
-
-            fetch('http://localhost:5001/user/password', {
-                method: 'PUT',
-                headers: new Headers({
-                    'Authorization': `Bearer ${localStorage.getItem('user_token')}`,
-                    'Content-Type': 'application/json'
-                }),
-                mode: 'cors',
-                body: JSON.stringify(body_password)
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (JSON.parse(data).msg === 'internal server error') {
-                    toast.error("Can't change password", {
-                        position: "bottom-right",
-                        autoClose: 5000,
-                        hideProgressBar: false,
-                        closeOnClick: true,
-                        pauseOnHover: false,
-                        draggable: true,
-                        progress: undefined,
-                    });
-                    return;
-                }
-                toast.success('Password changed !', {
-                    position: "bottom-right",
-                    autoClose: 5000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: false,
-                    draggable: true,
-                    progress: undefined,
-                });
-                this.closePasswordModal();
-            });
-        } else {
-            toast.error('Please, fill the form !', {
+        if (!this.state.old_password || this.state.old_password === '' || !this.state.confirmed_password || this.state.confirmed_password === '' || !this.state.new_password || this.state.new_password === '') {
+            toast.error("You must fill all the form !", {
                 position: "bottom-right",
                 autoClose: 5000,
                 hideProgressBar: false,
@@ -273,7 +221,58 @@ class Myaccount extends React.Component {
                 draggable: true,
                 progress: undefined,
             });
+            this.setState({ old_password: '' });
+            this.setState({ new_password: '' });
+            this.setState({ confirmed_password: '' });
+            this.setState({ passwordModal: false });
+            return;
         }
+        if (this.state.new_password !== this.state.confirmed_password) {
+            toast.error("New password and confirmed password must be same !", {
+                position: "bottom-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: false,
+                draggable: true,
+                progress: undefined,
+            });
+            this.setState({ old_password: '' });
+            this.setState({ new_password: '' });
+            this.setState({ confirmed_password: '' });
+            this.setState({ passwordModal: false });
+            return;
+        }
+
+        let password_body = {
+            old: this.state.old_password,
+            new: this.state.new_password
+        };
+
+        fetch('http://localhost:5001/user/password', {
+            method: 'PUT',
+            headers: new Headers({
+                'Authorization': `Bearer ${localStorage.getItem('user_token')}`,
+                'Content-Type': 'application/json'
+            }),
+            mode: 'cors',
+            body: JSON.stringify(password_body)
+        })
+        .then(() => {
+            toast.success('Password changed !', {
+                position: "bottom-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: false,
+                draggable: true,
+                progress: undefined,
+            });
+            this.setState({ old_password: '' });
+            this.setState({ new_password: '' });
+            this.setState({ confirmed_password: '' });
+            this.setState({ passwordModal: false });
+        });
     }
 
     render() {
