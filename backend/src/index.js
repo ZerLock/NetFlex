@@ -11,6 +11,7 @@ const filmsRoutes = require('./routes/films/films');
 const userRoutes = require('./routes/users/users');
 
 app.use(cors());
+app.set('trust proxy', true);
 app.use(express.json());
 
 app.use('/', authRoutes);
