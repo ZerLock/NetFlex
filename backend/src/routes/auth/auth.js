@@ -40,7 +40,6 @@ router.post('/register', (req, res) => {
         return res.status(500).json({ msg: 'internal server error (bad entries)' });
     }
 
-
     bcrypt.hash(password, 10)
         .then(hash => {
             register(res, firstname, name, nickname, email, hash);
