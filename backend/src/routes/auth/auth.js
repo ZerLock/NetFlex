@@ -53,13 +53,16 @@ router.post('/login', (req, res) => {
 
     if (!is_good_data(email) || !is_good_data(password) || !valideEmail.test(email))
         return res.status(500).json({ msg: 'internal server error' });
+
     const ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
-    const platform = req.headers['sec-ch-ua'].split(',')[2].split(';')[0];
+    const navigateur = req.headers['sec-ch-ua'].split(',')[2].split(';')[0];
+    const platform = req.headers['sec-ch-ua-platform'];
     const language = req.headers['accept-language'].split(',')[0];
     const encoding = req.headers['accept-encoding'];
     const is_on_mobile = (req.headers['sec-ch-ua-mobile'] === '?0') ? false : true;
     const country = (lookup(ip) === null) ? 'unknown' : lookup(ip).country;
-    add_to_logs(email, req.headers['user-agent'], platform, language, encoding, is_on_mobile, ip, country);
+
+    add_to_logs(email, req.headers['user-agent'], navigateur, platform, language, encoding, is_on_mobile, ip, country);
     login(res, email, password);
 });
 
