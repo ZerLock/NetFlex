@@ -35,3 +35,18 @@ CREATE TABLE IF NOT EXISTS films
     FULLTEXT (title, description, cast),
     PRIMARY KEY (id)
 );
+
+CREATE TABLE IF NOT EXISTS logs
+(
+    id BIGINT unsigned NOT NULL AUTO_INCREMENT,
+    user_email VARCHAR(255) NOT NULL,
+    connected_at DATETIME NOT NULL DEFAULT current_timestamp,
+    user_agent VARCHAR(255) NOT NULL,
+    platform VARCHAR(255) NOT NULL,
+    language VARCHAR(255) NOT NULL,
+    encoding VARCHAR(255) NOT NULL,
+    is_on_mobile BOOLEAN NOT NULL DEFAULT false,
+    ip_address VARCHAR(255) NOT NULL,
+    country VARCHAR(255) NOT NULL,
+    PRIMARY KEY (id)
+);
