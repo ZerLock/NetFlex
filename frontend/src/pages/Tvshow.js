@@ -11,14 +11,15 @@ export default class Tvshow extends React.Component {
         this.state = {
             isLoggedIn: isConnected(),
             tvshows: [],
-            filter: 'Genre'
+            ancian_filter: '*',
+            filter: '*'
         };
         this.handleChange = this.handleChange.bind(this);
     }
 
     componentDidMount() {
         if (this.state.isLoggedIn) {
-            let movie_body = {
+            let tvshow_body = {
                 type: "TV Show"
             };
 
@@ -29,11 +30,37 @@ export default class Tvshow extends React.Component {
                     "Content-Type": "application/json"
                 }),
                 mode: "cors",
-                body: JSON.stringify(movie_body)
+                body: JSON.stringify(tvshow_body)
             })
             .then(response => response.json())
-            .then(movies => {
-                this.setState({ tvshows: movies });
+            .then(tvshow => {
+                this.setState({ tvshows: tvshow });
+            });
+        }
+    }
+
+    componentDidUpdate() {
+        if (this.state.ancian_filter !== this.state.filter) {
+            console.log(this.state.filter);
+
+            let body = {
+                genre: this.state.filter,
+                type: "TV Show"
+            };
+
+            fetch('http://localhost:5001/films/genre', {
+                method: 'POST',
+                headers: new Headers({
+                    "Authorization": `Bearer ${localStorage.getItem("user_token")}`,
+                    "Content-Type": "application/json"
+                }),
+                mode: "cors",
+                body: JSON.stringify(body)
+            })
+            .then(response => response.json())
+            .then(tvshow => {
+                this.setState({ ancian_filter: this.state.filter });
+                this.setState({ tvshows: tvshow });
             });
         }
     }
@@ -43,6 +70,7 @@ export default class Tvshow extends React.Component {
     }
 
     render () {
+        console.log(this.state.tvshows);
         if (!this.state.isLoggedIn)
             return <Navigate to='/' />;
         return (
@@ -52,10 +80,16 @@ export default class Tvshow extends React.Component {
                     <div className='flex items-center'>
                         <h1 className='text-4xl'>TV Shows</h1>
                         <select className='bg-transparent border-2 rounded ml-5 p-2 h-12' value={this.state.filter} onChange={this.handleChange}>
-                            <option value=''>Genre</option>
-                            <option value='action'>Action</option>
-                            <option value='adventure'>Adventure</option>
+                            <option value='*'>Genre</option>
+                            <option value='kid'>Kid's TV</option>
+                            <option value='anime'>Anime</option>
+                            <option value='crime'>Crime</option>
+                            <option value='comedies'>Comedies</option>
+                            <option value='dramas'>Dramas</option>
                             <option value='romantic'>Romantic</option>
+                            <option value='docuseries'>Docuseries</option>
+                            <option value='reality'>Reality</option>
+                            <option value='horro'>Horror</option>
                         </select>
                     </div>
                 </div>

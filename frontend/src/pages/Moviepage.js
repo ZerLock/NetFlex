@@ -70,7 +70,7 @@ class Moviepage extends React.Component {
                         </p>
                     </div>
                     <div className='cover_movie grid place-items-center pt-20 w-1/3'>
-                        <img className='w-2/3 cover_picture' alt={this.state.movie.show_id} src={this.state.movie.picture} />
+                        <img className='w-2/3 cover_picture rounded-xl' alt={this.state.movie.show_id} src={this.state.movie.picture} />
                     </div>
                 </div>
             </div>

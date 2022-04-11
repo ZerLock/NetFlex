@@ -41,9 +41,10 @@ export function HomeNavbar() {
     const navigate = useNavigate();
     function handleSubmit(event)
     {
-        event.preventDefault();
-        if (search_str.length > 0)
+        if (search_str.length > 0) {
             navigate(`/browse/${search_str}`);
+            window.location.reload();
+        }
     }
 
     function handleChange(event)
@@ -65,11 +66,6 @@ export function HomeNavbar() {
                 <Link to='/tvshows'>
                     <li className='transition hover:scale-110'>
                         <button title='See all tv shows'>TV Shows</button>
-                    </li>
-                </Link>
-                <Link to='mylist'>
-                    <li className='transition hover:scale-110'>
-                        <button title='List of favourite movies'>My List</button>
                     </li>
                 </Link>
             </ul>

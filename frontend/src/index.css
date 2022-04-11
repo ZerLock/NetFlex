@@ -19,6 +19,18 @@
     vertical-align: middle;
 }
 
+.footer {
+    backdrop-filter: blur(4px) brightness(30%);
+    user-select: none;
+    position: fixed;
+    bottom: 0px;
+    width: 100vw;
+}
+
+option {
+    color: black;
+}
+
 span {
     margin-top: 3px;
 }

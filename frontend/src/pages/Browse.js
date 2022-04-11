@@ -11,6 +11,8 @@ class Browse extends React.Component {
         this.state = {
             search_str: '',
             result: [],
+            redirect_to_movie: false,
+            movie_id_selected: -1,
             isLoggedIn: isConnected(),
         };
     }
@@ -45,25 +47,34 @@ class Browse extends React.Component {
         }
     }
 
+    handleSubmitMovie(event, id) {
+        event.preventDefault();
+        this.setState({ movie_id_selected: id });
+        this.setState({ redirect_to_movie: true });
+    }
+
     render() {
         if (!this.state.isLoggedIn)
             return <Navigate to='/' />
+        if (this.state.redirect_to_movie)
+            return <Navigate to={`/movie/${this.state.movie_id_selected}`}  />
         return (
             <div className='w-screen mx-auto text-white bg-[#141414]'>
                 <HomeNavbar />
                 <h1>Results for : {this.state.search_str}</h1>
-                <div className=''>
+                <div className='m-5 flex flex-wrap space-x-5'>
                     {this.state.result.map(movie => (
                         <div className='flex-shrink-0'>
-                            <h1 className='text-lg truncate w-52'>{movie.title}</h1>
-                            <img className='object-cover w-56 h-80' src={movie.picture} alt={String(movie.show_id)} />
+                            <button onClick={e => this.handleSubmitMovie(e, movie.id)} title={movie.title}>
+                                <h1 className='text-lg truncate w-52'>{movie.title}</h1>
+                                <img className='object-cover w-56 h-80' src={movie.picture} alt={String(movie.show_id)} />
+                            </button>
                         </div>
                     ))}
                 </div>
             </div>
         );
     }
-
 }
 
 export default (props) => (

@@ -30,9 +30,7 @@ export class Loggedin extends React.Component {
             let movie_body = {
                 type: 'Movie'
             }
-            let tv_show_body = {
-                type: 'TV Show'
-            }
+
             fetch('http://localhost:5001/films/type', {
                 method: 'POST',
                 headers: new Headers({
@@ -44,6 +42,11 @@ export class Loggedin extends React.Component {
             })
             .then(response => response.json())
             .then(movies => this.setState({ movies: movies }));
+
+            let tv_show_body = {
+                type: 'TV Show'
+            }
+
             fetch('http://localhost:5001/films/type', {
                 method: 'POST',
                 headers: new Headers({
@@ -64,38 +67,38 @@ export class Loggedin extends React.Component {
         return (
             <div className='p-5 text-white not_connected items-center justify-center'>
                 {/* Movies */}
-                <div className='flex flex-row align-bottom '>
+                <div className='flex mt-4 flex-row align-bottom '>
                     <h1 className='text-2xl'>Movies selection</h1>
                     <Link to='/movies' className='ml-auto'>
                         <button title='See all movies' className='text-red-600 ml-auto transition hover:scale-110'>See all <span className='text-3xl pb-1'> > </span></button>
                     </Link>
                 </div>
-                <div className='mx-10'>
+                <div className='mx-10 pt-1'>
                     <Swiper slidesPerView={7} >
                         {this.state.movies.map(movie => (
                             <SwiperSlide key={movie.show_id} className='flex-shrink-0'>
                                 <button onClick={e => this.handleSubmitMovie(e, movie.id)} title={movie.title}>
                                     <h1 className='text-lg truncate w-52'>{movie.title}</h1>
-                                    <img alt={String(movie.show_id)} className='object-cover w-56 h-80' src={movie.picture} />
+                                    <img alt={String(movie.show_id)} className='object-cover w-56 h-80 rounded-lg' src={movie.picture} />
                                 </button>
                             </SwiperSlide>
                         ))}
                     </Swiper>
                 </div>
                 {/* Tv_Shows */}
-                <div className='flex flex-row align-bottom pt-5'>
+                <div className='flex mt-5 flex-row align-bottom pt-4'>
                     <h1 className='text-2xl'>TV Shows selection</h1>
                     <Link to='/tvshows' className='ml-auto'>
                         <button title='See all tv shows' className='text-red-600 transition hover:scale-110'>See all <span className='text-3xl pb-1'> > </span></button>
                     </Link>
                 </div>
-                <div className='mx-10'>
+                <div className='mx-10 pt-1'>
                     <Swiper slidesPerView={7}>
                         {this.state.tv_shows.map(tv_show => (
                             <SwiperSlide key={tv_show.show_id}  className='flex-shrink-0'>
                                 <button onClick={e => this.handleSubmitMovie(e, tv_show.id)} title={tv_show.title}>
                                     <h1 className='text-lg truncate w-52'>{tv_show.title}</h1>
-                                    <img className='object-cover w-56 h-80' src={tv_show.picture} alt={String(tv_show.show_id)} />
+                                    <img className='object-cover w-56 h-80 rounded-lg' src={tv_show.picture} alt={String(tv_show.show_id)} />
                                 </button>
                             </SwiperSlide>
                         ))}
