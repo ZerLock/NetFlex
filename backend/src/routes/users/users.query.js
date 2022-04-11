@@ -80,3 +80,10 @@ exports.change_user_nickname = (res, nickname, id) => {
         res.status(200).json({ msg: 'nickname changed' });
     });
 };
+
+// add_to_logs(email, req.headers['user-agent'], platform, language, encoding, is_on_mobile, ip, lookup(ip).country);
+exports.add_to_logs = (email, user_agent, platform, langauge, encoding, is_on_mobile, ip, country) => {
+    db.execute('INSERT INTO `logs` (user_email, user_agent, platform, language, encoding, is_on_mobile, ip_address, country) VALUES (?, ?, ?, ?, ?, ?, ?, ?)', [email, user_agent, platform, langauge, encoding, is_on_mobile, ip, country], (error, results, fields) => {
+        if (error) console.log(error);
+    });
+};

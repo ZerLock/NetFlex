@@ -5,7 +5,7 @@ const router = express.Router();
 const { lookup } = require('geoip-lite');
 
 const { is_good_data } = require('../../middleware/datas');
-const { register, login } = require('../users/users.query');
+const { register, login, add_to_logs } = require('../users/users.query');
 const { valideEmail } = require('../../config/regex');
 
 router.post('/register', (req, res) => {
@@ -54,9 +54,12 @@ router.post('/login', (req, res) => {
     if (!is_good_data(email) || !is_good_data(password) || !valideEmail.test(email))
         return res.status(500).json({ msg: 'internal server error' });
     const ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
-    console.log('ip :', ip);
-    console.log(lookup(ip));
-    console.log(req.headers);
+    const platform = req.headers['sec-ch-ua'].split(',')[2].split(';')[0];
+    const language = req.headers['accept-language'].split(',')[0];
+    const encoding = req.headers['accept-encoding'];
+    const is_on_mobile = (req.headers['sec-ch-ua-mobile'] === '?0') ? false : true;
+    const country = (lookup(ip) === null) ? 'unknown' : lookup(ip).country;
+    add_to_logs(email, req.headers['user-agent'], platform, language, encoding, is_on_mobile, ip, country);
     login(res, email, password);
 });
 
