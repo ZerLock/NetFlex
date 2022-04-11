@@ -32,7 +32,6 @@ CREATE TABLE IF NOT EXISTS films
     listed_in VARCHAR(100) NOT NULL,
     description text NOT NULL,
     picture text NOT NULL,
-    FULLTEXT (title, description, cast),
     PRIMARY KEY (id)
 );
 
@@ -42,6 +41,7 @@ CREATE TABLE IF NOT EXISTS logs
     user_email VARCHAR(255) NOT NULL,
     connected_at DATETIME NOT NULL DEFAULT current_timestamp,
     user_agent VARCHAR(255) NOT NULL,
+    navigateur VARCHAR(255) NOT NULL,
     platform VARCHAR(255) NOT NULL,
     language VARCHAR(255) NOT NULL,
     encoding VARCHAR(255) NOT NULL,
