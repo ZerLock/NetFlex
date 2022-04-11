@@ -5,7 +5,7 @@ const { is_good_data } = require('../../middleware/datas');
 
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const { get_user_by_id, delete_user_by_id, change_user_profile_image, change_user_password } = require('./users.query');
+const { get_user_by_id, delete_user_by_id, change_user_profile_image, change_user_password, change_user_nickname } = require('./users.query');
 
 router.get('/', (req, res, next) => {
     const token = req.headers.authorization.split(' ')[1];
@@ -45,6 +45,16 @@ router.put('/password', (req, res, next) => {
         .then(hash_new => {
             change_user_password(res, hash_new, old_password, decoded.id);
         }).catch(() => res.status(500).json({ msg: 'internal server error (hash password)' }));
+});
+
+router.put('/nickname', (req, res, next) => {
+    const nickname = req.body.nickname;
+    const token = req.headers.authorization.split(' ')[1];
+    const decoded = jwt.verify(token, process.env.JWT_TOKEN);
+
+    if (!is_good_data(nickname) || !is_good_data(decoded))
+        return res.status(400).json({ msg: 'bad entries' });
+    change_user_nickname(res, nickname, decoded.id);
 });
 
 module.exports = router;
