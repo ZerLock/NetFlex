@@ -59,6 +59,23 @@ const PasswordModal = {
     },
 }
 
+const NicknameModal = {
+    content: {
+        top: '50%',
+        left: '50%',
+        right: 'auto',
+        bottom: 'auto',
+        marginRight: '-50%',
+        transform: 'translate(-50%, -50%)',
+        backgroundColor: '#303030',
+        color: '#efefef',
+        width: '30%',
+        height: '30%',
+        borderRadius: 15,
+        overflow: 'hidden',
+    },
+}
+
 class Myaccount extends React.Component {
 
     constructor(props) {
@@ -73,6 +90,8 @@ class Myaccount extends React.Component {
             old_password: '',
             new_password: '',
             confirmed_password: '',
+            nicknameModal: false,
+            new_nickname: '',
         };
         this.handleSubmitDeconnection = this.handleSubmitDeconnection.bind(this);
         this.handleSubmitDelete = this.handleSubmitDelete.bind(this);
@@ -85,6 +104,9 @@ class Myaccount extends React.Component {
         this.openPasswordModal = this.openPasswordModal.bind(this);
         this.closePasswordModal = this.closePasswordModal.bind(this);
         this.handleChangeUserPassword = this.handleChangeUserPassword.bind(this);
+        this.closeNicknameModal = this.closeNicknameModal.bind(this);
+        this.openNicknameModal = this.openNicknameModal.bind(this);
+        this.handleSubmitNickname = this.handleSubmitNickname.bind(this);
     }
 
     componentDidMount() {
@@ -104,6 +126,14 @@ class Myaccount extends React.Component {
                 this.setState({ image_url: data.image_url });
             });
         }
+    }
+
+    openNicknameModal() {
+        this.setState({ nicknameModal: true });
+    }
+
+    closeNicknameModal() {
+        this.setState({ nicknameModal: false });
     }
 
     openDeleteModal() {
@@ -137,6 +167,52 @@ class Myaccount extends React.Component {
         event.preventDefault();
         this.setState({ isLoggedIn: false });
         localStorage.removeItem('user_token');
+    }
+
+    handleSubmitNickname(event) {
+        event.preventDefault();
+        if (!this.state.new_nickname || this.state.new_nickname === '') {
+            toast.error("Please fill the form !", {
+                position: "bottom-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: false,
+                draggable: true,
+                progress: undefined,
+            });
+            this.setState({ new_nickname: '' });
+            return;
+        }
+
+        let nickname_body = {
+            nickname: this.state.new_nickname
+        };
+
+        fetch('http://localhost:5001/user/nickname', {
+            method: 'PUT',
+            headers: new Headers({
+                'Authorization': `Bearer ${localStorage.getItem('user_token')}`,
+                'Content-Type': 'application/json'
+            }),
+            mode: 'cors',
+            body: JSON.stringify(nickname_body)
+        })
+        .then(response => response.json())
+        .then(data => {
+            toast.success("Nickname changed !", {
+                position: "bottom-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: false,
+                draggable: true,
+                progress: undefined,
+            });
+            this.state.user.nickname = this.state.new_nickname;
+            this.setState({ new_nickname: '' });
+            this.closeNicknameModal();
+        });
     }
 
     handleSubmitDelete(event) {
@@ -297,6 +373,7 @@ class Myaccount extends React.Component {
                                 </button>
                             </div>
                             <button onClick={this.openPasswordModal} >Change password</button>
+                            <button onClick={this.openNicknameModal}>Change nickname</button>
 
                             <div className='grid grid-cols-2 space-x-5'>
                                 <button onClick={this.handleSubmitDeconnection} title='Deconnection' className='px-5 py-3 rounded-lg bg-gradient-to-r from-[#8b1418] to-[#d71f26] hover:from-[#d71f26] hover:to-[#d15156]'>
@@ -337,6 +414,21 @@ class Myaccount extends React.Component {
                         </div>
                         <div className='grid place-items-center mt-8 text-3xl'>
                             <button onClick={this.handleSubmitDelete} className='px-5 py-2 rounded-lg bg-gradient-to-r from-[#d71f26] to-[#8b1418] hover:from-[#d15156] hover:to-[#d71f26]' >Confirm</button>
+                        </div>
+                    </div>
+                </Modal>
+                <Modal
+                    isOpen={this.state.nicknameModal}
+                    style={NicknameModal}
+                >
+                    <div className='text-2xl'>
+                        <div className='flex'>
+                            <h1 className='mt-2'>Change nickname :</h1>
+                            <button onClick={this.closeNicknameModal} className='ml-auto p-2 hover:bg-[#202020] rounded-lg'>X</button>
+                        </div>
+                        <div className='grid place-items-center space-y-5 mt-8 text-3xl'>
+                            <input onChange={e => this.setState({ new_nickname: e.target.value })} type='text' placeholder='New nickname' value={this.state.new_nickname} onChange={e => this.setState({ new_nickname: e.target.value})} className='w-full p-4 bg-transparent border-2 rounded-lg focus:outline-none' />
+                            <button onClick={this.handleSubmitNickname} className='px-5 py-2 rounded-lg bg-gradient-to-r from-[#d71f26] to-[#8b1418] hover:from-[#d15156] hover:to-[#d71f26]' >Confirm</button>
                         </div>
                     </div>
                 </Modal>

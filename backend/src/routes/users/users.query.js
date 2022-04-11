@@ -73,3 +73,10 @@ exports.change_user_password = (res, new_password, old_password, id) => {
             .catch(() => res.status(500).json({ msg: 'internal server error (bad password)' }));
     });
 };
+
+exports.change_user_nickname = (res, nickname, id) => {
+    db.execute('UPDATE `user` SET `nickname` = ? WHERE `id` = ?', [nickname, id], (error, results, fields) => {
+        if (error) return res.status(500).json({ msg: 'internal server error (db request)' });
+        res.status(200).json({ msg: 'nickname changed' });
+    });
+};
