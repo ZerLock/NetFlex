@@ -1,7 +1,7 @@
 # NetFlex
 
-## How to access to the website
-![el-netflex.tk](https://el-netflex.tk)
+## How to access to the website 🚀
+-> <a href='https://el-netflex.tk'>el-netflex.tk</a>
 
 ## Description
 Recreate a web application like Netflix to train and learn soft / web level technologies
