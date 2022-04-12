@@ -59,15 +59,15 @@ class Browse extends React.Component {
         if (this.state.redirect_to_movie)
             return <Navigate to={`/movie/${this.state.movie_id_selected}`}  />
         return (
-            <div className='w-screen mx-auto text-white bg-[#141414]'>
+            <div className='mx-auto text-white bg-[#141414]'>
                 <HomeNavbar />
-                <h1>Results for : {this.state.search_str}</h1>
-                <div className='m-5 flex flex-wrap space-x-5'>
+                <h1 className='m-5 text-2xl'>Results for : {this.state.search_str}</h1>
+                <div className='flex flex-wrap justify-center pb-10 items-center space-y-10 space-x-10'>
                     {this.state.result.map(movie => (
-                        <div className='flex-shrink-0'>
+                        <div className='transition hover:scale-110'>
                             <button onClick={e => this.handleSubmitMovie(e, movie.id)} title={movie.title}>
                                 <h1 className='text-lg truncate w-52'>{movie.title}</h1>
-                                <img className='object-cover w-56 h-80' src={movie.picture} alt={String(movie.show_id)} />
+                                <img className='object-cover w-56 h-80 rounded' src={movie.picture} alt={String(movie.show_id)} />
                             </button>
                         </div>
                     ))}

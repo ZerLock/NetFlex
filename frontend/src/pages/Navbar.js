@@ -53,7 +53,7 @@ export function HomeNavbar() {
     }
 
     return (
-        <nav className='flex items-center w-screen p-4 bg-[#202020]' >
+        <nav className='flex items-center p-4 bg-[#202020]' >
             <Link to="/">
                 <img className='h-10' src={logo} alt='logo' />
             </Link>
@@ -70,14 +70,16 @@ export function HomeNavbar() {
                 </Link>
             </ul>
             <ul className='ml-auto flex items-center space-x-4'>
-                <li>
-                    <input type='text' onChange={handleChange} disabled={!isConnected()} placeholder="Search" className='w-80 px-2 focus:outline-none border-b-2 placeholder-white-600 border-white bg-transparent' />
-                </li>
-                <li>
-                    <button title='Search movie and tv show' onClick={handleSubmit} disabled={!isConnected()} className='transition hover:-transition-y-1 hover:duration-300 hover:scale-110 ease-in-out' >
-                        <img alt='search button' src={search} className='h-6' />
-                    </button>
-                </li>
+                <form className='ml-auto flex items-center spaxe-x-4'>
+                    <li className='mr-4'>
+                        <input type='text' onChange={handleChange} disabled={!isConnected()} placeholder="Search" className='w-80 px-2 focus:outline-none border-b-2 placeholder-white-600 border-white bg-transparent' />
+                    </li>
+                    <li>
+                            <button title='Search movie and tv show' onClick={handleSubmit} disabled={!isConnected()} className='transition hover:-transition-y-1 hover:duration-300 hover:scale-110 ease-in-out' >
+                                <img alt='search button' src={search} className='h-6' />
+                            </button>
+                    </li>
+                </form>
                 <Link to='/browse/*'>
                     <li>
                         <button title='See all movies and tv shows' >Browse</button>

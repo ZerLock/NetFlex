@@ -74,7 +74,7 @@ export default class Tvshow extends React.Component {
         if (!this.state.isLoggedIn)
             return <Navigate to='/' />;
         return (
-            <div className='w-screen h-screen mx-auto text-white bg-[#141414]'>
+            <div className='text-white bg-[#141414]'>
                 <HomeNavbar />
                 <div className='m-4'>
                     <div className='flex items-center'>
@@ -93,11 +93,11 @@ export default class Tvshow extends React.Component {
                         </select>
                     </div>
                 </div>
-                <div id='movies' className='grid grid-cols-5 w-screen'>
+                <div id='movies' className='pb-10 flex flex-wrap justify-center space-x-5 space-y-5'>
                     {this.state.tvshows.map(tvshow => (
-                        <div className='flex-shrink-0'>
+                        <div className='mt-4 ml-4 transition hover:scale-110'>
                             <h1 className='text-lg truncate w-52'>{tvshow.title}</h1>
-                            <img className='object-cover w-56 h-80' src={tvshow.picture} alt={String(tvshow.show_id)} />
+                            <img className='object-cover w-56 h-80 rounded-lg' src={tvshow.picture} alt={String(tvshow.show_id)} />
                         </div>
                     ))}
                 </div>

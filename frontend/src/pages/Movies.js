@@ -72,14 +72,13 @@ export default class Movies extends React.Component {
     }
 
     render() {
-        // console.log("render() method !");
         if (!this.state.isLoggedIn)
             return <Navigate to='/' />
         return (
-            <div className='w-screen mb-5 mx-auto text-white bg-[#141414]'>
+            <div className='text-white bg-[#141414]'>
                 <HomeNavbar />
                 <div className='m-4'>
-                    <div className='flex flex-row'>
+                    <div className='flex items-center'>
                         <h1 className='text-4xl'>Movies</h1>
                         <select className='bg-transparent h-12 ml-5 border-2 rounded p-2' value={this.state.filter} onChange={this.handleChange}>
                             <option value='*'>Genre</option>
@@ -95,14 +94,14 @@ export default class Movies extends React.Component {
                             <option value='spirituality'>Spirituality</option>
                         </select>
                     </div>
-                    <div id='movies' className='grid grid-cols-5 w-screen'>
-                        {this.state.movies.map(movie => (
-                            <div className='flex-shrink-0'>
-                                <h1 className='text-lg truncate w-52'>{movie.title}</h1>
-                                <img className='object-cover w-56 h-80' src={movie.picture} alt={String(movie.show_id)} />
-                            </div>
-                        ))}
-                    </div>
+                </div>
+                <div id='movies' className='pb-10 flex flex-wrap justify-center space-x-5 space-y-5'>
+                    {this.state.movies.map(movie => (
+                        <div className='mt-4 ml-4 transition hover:scale-110'>
+                            <h1 className='text-lg truncate w-52'>{movie.title}</h1>
+                            <img className='object-cover w-56 h-80 rounded-lg' src={movie.picture} alt={String(movie.show_id)} />
+                        </div>
+                    ))}
                 </div>
             </div>
         );
