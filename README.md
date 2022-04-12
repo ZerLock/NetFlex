@@ -1,5 +1,8 @@
 # NetFlex
 
+## How to access to the website
+![el-netflex.tk](https://el-netflex.tk)
+
 ## Description
 Recreate a web application like Netflix to train and learn soft / web level technologies
 
