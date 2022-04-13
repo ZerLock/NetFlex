@@ -77,7 +77,7 @@ export class Loggedin extends React.Component {
                     <Swiper slidesPerView={7} >
                         {this.state.movies.map(movie => (
                             <SwiperSlide key={movie.show_id} className='flex-shrink-0'>
-                                <button className='transition hover:scale-95' onClick={e => this.handleSubmitMovie(e, movie.id)} title={movie.title}>
+                                <button className='hover:opacity-50' onClick={e => this.handleSubmitMovie(e, movie.id)} title={movie.title}>
                                     <h1 className='text-lg truncate w-52'>{movie.title}</h1>
                                     <img alt={String(movie.show_id)} className='object-cover w-56 h-80 rounded-lg' src={movie.picture} />
                                 </button>
@@ -96,7 +96,7 @@ export class Loggedin extends React.Component {
                     <Swiper slidesPerView={7}>
                         {this.state.tv_shows.map(tv_show => (
                             <SwiperSlide key={tv_show.show_id}  className='flex-shrink-0'>
-                                <button className='transition hover:scale-95' onClick={e => this.handleSubmitMovie(e, tv_show.id)} title={tv_show.title}>
+                                <button className='hover:opacity-50' onClick={e => this.handleSubmitMovie(e, tv_show.id)} title={tv_show.title}>
                                     <h1 className='text-lg truncate w-52'>{tv_show.title}</h1>
                                     <img className='object-cover w-56 h-80 rounded-lg' src={tv_show.picture} alt={String(tv_show.show_id)} />
                                 </button>
