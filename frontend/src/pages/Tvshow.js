@@ -12,9 +12,12 @@ export default class Tvshow extends React.Component {
             isLoggedIn: isConnected(),
             tvshows: [],
             ancian_filter: '*',
-            filter: '*'
+            filter: '*',
+            redirect_to_movie: false,
+            movie_id_selected: -1,
         };
         this.handleChange = this.handleChange.bind(this);
+        this.handleSubmitMovie = this.handleSubmitMovie.bind(this);
     }
 
     componentDidMount() {
@@ -69,16 +72,23 @@ export default class Tvshow extends React.Component {
         this.setState({ filter: event.target.value });
     }
 
+    handleSubmitMovie(event, id) {
+        event.preventDefault();
+        this.setState({ movie_id_selected: id });
+        this.setState({ redirect_to_movie: true });
+    }
+
     render () {
-        console.log(this.state.tvshows);
         if (!this.state.isLoggedIn)
             return <Navigate to='/' />;
+        if (this.state.redirect_to_movie)
+            return <Navigate to={`/movie/${this.state.movie_id_selected}`} />;
         return (
             <div className='text-white bg-[#141414]'>
                 <HomeNavbar />
                 <div className='m-4'>
                     <div className='flex items-center'>
-                        <h1 className='text-4xl'>TV Shows</h1>
+                        <h1 className='text-4xl grid place-items-center'>TV Shows</h1>
                         <select className='bg-transparent border-2 rounded ml-5 p-2 h-12' value={this.state.filter} onChange={this.handleChange}>
                             <option value='*'>Genre</option>
                             <option value='kid'>Kid's TV</option>
@@ -95,10 +105,10 @@ export default class Tvshow extends React.Component {
                 </div>
                 <div id='movies' className='pb-10 flex flex-wrap justify-center space-x-5 space-y-5'>
                     {this.state.tvshows.map(tvshow => (
-                        <div className='mt-4 ml-4 transition hover:scale-110'>
+                        <button onClick={e => this.handleSubmitMovie(e, tvshow.id)} iv className='mt-4 ml-4 hover:opacity-50'>
                             <h1 className='text-lg truncate w-52'>{tvshow.title}</h1>
                             <img className='object-cover w-56 h-80 rounded-lg' src={tvshow.picture} alt={String(tvshow.show_id)} />
-                        </div>
+                        </button>
                     ))}
                 </div>
             </div>

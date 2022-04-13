@@ -14,8 +14,11 @@ export default class Movies extends React.Component {
             ancian_filter: '*',
             filter: '*',
             movies: [],
+            redirect_to_movie: false,
+            movie_id_selected: -1,
         };
         this.handleChange = this.handleChange.bind(this);
+        this.handleSubmitMovie = this.handleSubmitMovie.bind(this);
     }
 
     componentDidMount() {
@@ -71,15 +74,23 @@ export default class Movies extends React.Component {
         this.setState({ filter: event.target.value });
     }
 
+    handleSubmitMovie(event, id) {
+        event.preventDefault();
+        this.setState({ movie_id_selected: id });
+        this.setState({ redirect_to_movie: true });
+    }
+
     render() {
         if (!this.state.isLoggedIn)
             return <Navigate to='/' />
+        if (this.state.redirect_to_movie)
+            return <Navigate to={`/movie/${this.state.movie_id_selected}`} />
         return (
             <div className='text-white bg-[#141414]'>
                 <HomeNavbar />
                 <div className='m-4'>
                     <div className='flex items-center'>
-                        <h1 className='text-4xl'>Movies</h1>
+                        <h1 className='text-4xl grid place-items-center'>Movies</h1>
                         <select className='bg-transparent h-12 ml-5 border-2 rounded p-2' value={this.state.filter} onChange={this.handleChange}>
                             <option value='*'>Genre</option>
                             <option value='action'>Action</option>
@@ -97,10 +108,10 @@ export default class Movies extends React.Component {
                 </div>
                 <div id='movies' className='pb-10 flex flex-wrap justify-center space-x-5 space-y-5'>
                     {this.state.movies.map(movie => (
-                        <div className='mt-4 ml-4 transition hover:scale-110'>
+                        <button onClick={e => this.handleSubmitMovie(e, movie.id)} className='mt-4 ml-4 hover:opacity-50'>
                             <h1 className='text-lg truncate w-52'>{movie.title}</h1>
                             <img className='object-cover w-56 h-80 rounded-lg' src={movie.picture} alt={String(movie.show_id)} />
-                        </div>
+                        </button>
                     ))}
                 </div>
             </div>
