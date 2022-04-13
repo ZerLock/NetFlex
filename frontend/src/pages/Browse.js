@@ -64,7 +64,7 @@ class Browse extends React.Component {
                 <h1 className='m-5 text-2xl'>Results for : {this.state.search_str}</h1>
                 <div className='flex flex-wrap justify-center pb-10 items-center space-y-10 space-x-10'>
                     {this.state.result.map(movie => (
-                        <div className='transition hover:scale-110'>
+                        <div className='hover:opacity-50'>
                             <button onClick={e => this.handleSubmitMovie(e, movie.id)} title={movie.title}>
                                 <h1 className='text-lg truncate w-52'>{movie.title}</h1>
                                 <img className='object-cover w-56 h-80 rounded' src={movie.picture} alt={String(movie.show_id)} />
