@@ -54,10 +54,12 @@ export function HomeNavbar() {
 
     return (
         <nav className='flex items-center p-4 bg-[#202020]' >
-            <Link to="/">
-                <img className='h-10' src={logo} alt='logo' />
-            </Link>
-            <ul className='ml-6 flex items-center space-x-4'>
+            <div className='mr-10'>
+                <Link to="/">
+                    <img className='h-10' src={logo} alt='logo' />
+                </Link>
+            </div>
+            <ul className='ml-6 flex items-center space-x-12'>
                 <Link to='/movies'>
                     <li className='transition hover:scale-110'>
                         <button title='See all movies'>Movies</button>
@@ -76,7 +78,7 @@ export function HomeNavbar() {
                     </li>
                     <li>
                             <button title='Search movie and tv show' onClick={handleSubmit} disabled={!isConnected()} className='transition hover:-transition-y-1 hover:duration-300 hover:scale-110 ease-in-out' >
-                                <img alt='search button' src={search} className='h-6' />
+                                <img alt='search button' src={search} className='h-7' />
                             </button>
                     </li>
                 </form>
@@ -90,7 +92,7 @@ export function HomeNavbar() {
                         {!isConnected() ?
                                 <button title='Sign into NetFlex' className='bg-[#404040] rounded-lg p-2 px-4 hover:bg-[#505050] ring-white active:bg-[#353535]' >Sign In</button>
                         :
-                                <button title='Account settings' className='transition hover:scale-125'>
+                                <button title='Account settings'>
                                     <img className='flex h-8' alt='user profile' src={image_url} />
                                 </button>
                         }
