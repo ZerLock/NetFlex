@@ -358,8 +358,8 @@ class Myaccount extends React.Component {
             <div className='w-screen background h-screen mx-auto text-white text-2xl bg-[#141414]'>
                 <ConnectionNavbar />
                 <div className='grid place-items-center not_connected'>
-                    <div className='p-5 bg-[#303030] h-3/4 w-1/2 rounded-2xl'>
-                        <h1 className='mb-10 mt-5 grid place-items-center text-4xl'>Welcome back, {this.state.user.nickname} !</h1>
+                    <div className='p-5 bg-[#303030] h-3/5 w-1/2 rounded-2xl'>
+                        <h1 className='mb-10 mt-5 grid place-items-center text-5xl'>Welcome back, {this.state.user.nickname} !</h1>
                         <div className='grid grid-cols-2 place-items-center'>
                             <div>
                                 <button onClick={this.openModal} title='Change profile picture'>
@@ -367,25 +367,25 @@ class Myaccount extends React.Component {
                                 </button>
                             </div>
                             <div className='space-y-3'>
-                                <h1>Firstname : {this.state.user.firstname}</h1>
-                                <h1>Name : {this.state.user.name}</h1>
-                                <h1>Email : {this.state.user.email}</h1>
-                                <div className='grid place-items-start space-y-3'>
-                                    <button onClick={this.openPasswordModal} className='border-b-2 translation hover:scale-110'>Change password</button>
-                                    <button onClick={this.openNicknameModal} className='border-b-2 translation hover:scale-110'>Change nickname</button>
+                                <h1><b>Firstname</b> : {this.state.user.firstname}</h1>
+                                <h1><b>Name</b> : {this.state.user.name}</h1>
+                                <h1><b>Email</b> : {this.state.user.email}</h1>
+                                <div className='grid place-items-start space-y-3 pt-3'>
+                                    <button onClick={this.openPasswordModal} className='border-b-2 hover:text-gray-300'>Change password</button>
+                                    <button onClick={this.openNicknameModal} className='border-b-2 hover:text-gray-300'>Change nickname</button>
                                 </div>
                             </div>
                         </div>
                         <div className='grid grid-cols-3 place-items-center mt-20'>
                             <Link to='/'>
-                                <button title='Back to home' className='bg-white rounded px-5 py-3 text-black text-2xl hover:bg-gray-300 hover:opacity-70'>
+                                <button title='Back to home' className='bg-white rounded-lg px-5 py-3 text-black text-2xl hover:bg-gray-300 hover:opacity-70'>
                                     NetFlex Home
                                 </button>
                             </Link>
-                            <button onClick={this.handleSubmitDeconnection} title='Deconnection' className='px-5 py-3 mr-3 rounded-lg bg-gradient-to-r from-[#8b1418] to-[#d71f26] hover:from-[#d71f26] hover:to-[#d15156]'>
+                            <button onClick={this.handleSubmitDeconnection} title='Deconnection' className='px-5 py-3 mr-3 rounded-lg bg-gradient-to-r from-[#df161d] to-[#d71f26] hover:from-[#d71f26] hover:to-[#da3d42]'>
                                 Deconnection
                             </button>
-                            <button onClick={this.openDeleteModal} title='Delete your NetFlex account' className='px-5 py-3 rounded-lg bg-gradient-to-r from-[#d71f26] to-[#8b1418] hover:from-[#d15156] hover:to-[#d71f26]'>
+                            <button onClick={this.openDeleteModal} title='Delete your NetFlex account' className='px-5 py-3 rounded-lg bg-gradient-to-r from-[#d71f26] to-[#df161d] hover:from-[#da3d42] hover:to-[#d71f26]'>
                                 Delete account
                             </button>
                         </div>
