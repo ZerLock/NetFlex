@@ -7,6 +7,8 @@ import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'
 import { valideEmail } from '../js/regex';
 
+import ReCAPTCHA from 'react-google-recaptcha';
+
 class Register extends React.Component {
 
     constructor(props) {
@@ -17,11 +19,13 @@ class Register extends React.Component {
             nickname: '',
             email: '',
             password: '',
+            captcha: false,
             popup_msg: 'Registration failed',
             redirect: false,
         };
         this.validateFormRegister = this.validateFormRegister.bind(this);
         this.handleSubmitRegister = this.handleSubmitRegister.bind(this);
+        this.onCaptchaChange = this.onCaptchaChange.bind(this);
     }
 
     componentDidMount() {
@@ -30,6 +34,7 @@ class Register extends React.Component {
             this.setState({ email: new_email});
             localStorage.removeItem('user_email_from_notconnected');
         }
+        console.log(process.env.CAPTCHA_KEY);
     }
 
     validateFormRegister() {
@@ -38,7 +43,7 @@ class Register extends React.Component {
         let nickname = this.state.nickname;
         let email = this.state.email;
         let password = this.state.password;
-        return firstname.length > 0 && name.length > 0 && nickname.length > 0 && email.length > 0 && password.length > 0 && valideEmail.test(email);
+        return firstname.length > 0 && name.length > 0 && nickname.length > 0 && email.length > 0 && password.length > 0 && valideEmail.test(email) && this.state.captcha;
     }
 
     handleSubmitRegister(event) {
@@ -89,6 +94,10 @@ class Register extends React.Component {
         })
     }
 
+    onCaptchaChange(value) {
+        this.setState({ captcha: true });
+    }
+
     render() {
         if (this.state.redirect)
             return <Navigate to='/' />
@@ -105,6 +114,12 @@ class Register extends React.Component {
                             <input id='nickname_register' value={this.state.nickname} onChange={(e) => this.setState({ nickname: e.target.value })} type='text' placeholder='Nickname' className='w-full border-2 focus:outline-none border-white bg-transparent p-4 rounded-lg mb-5' required />
                             <input id='email_register' value={this.state.email} onChange={(e) => this.setState({ email: e.target.value })} type='email' placeholder='Email' className='w-full border-2 focus:outline-none border-white bg-transparent p-4 rounded-lg mb-5' required />
                             <input id='password_login' value={this.state.password} onChange={(e) => this.setState({ password: e.target.value })} type='password' placeholder='Password' className=' w-full border-2 focus:outline-none border-white bg-transparent p-4 rounded-lg mb-5' required />
+                            <ReCAPTCHA
+                                theme='dark'
+                                sitekey={process.env.REACT_APP_CAPTCHA_KEY}
+                                onChange={this.onCaptchaChange}
+                                className='mb-5'
+                            />
                             <input type='submit' value='Create account' disabled={!this.validateFormRegister()} className='w-full disabled:from-[#3d3d3d] disabled:to-[#222222] rounded-lg bg-gradient-to-r transition hover:duration-300 hover:scale-105 from-[#d71f26] to-[#8b1418] p-4 focus:outline-none hover:from-[#d15156] hover:to-[#d71f26] ring-white active:ring-2' />
                         </form>
                         <p>
