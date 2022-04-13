@@ -57,15 +57,15 @@ class Moviepage extends React.Component {
                 <HomeNavbar />
                 <div className='flex flex-row w-screen'>
                     <div className='informations_movie p-20 space-y-5 text-2xl w-2/3'>
-                        <h1 className='text-4xl'>{this.state.movie.title}</h1>
-                        <p>{this.state.movie.release_year} | {this.state.movie.rating} | {this.state.movie.type} | {this.state.movie.listed_in}</p>
-                        <p className='w-3/4 flex'><p className=''>Description:</p><p className='pl-4 text-justify'>{this.state.movie.description}</p></p>
+                        <h1 className='text-5xl'>{this.state.movie.title}</h1>
+                        <p className='text-3xl pb-5'>{this.state.movie.release_year} | {this.state.movie.rating} | {this.state.movie.type} | {this.state.movie.listed_in}</p>
+                        <p className='w-3/4 flex'><p className=''><b>Description:</b></p><p className='pl-4 text-justify'>{this.state.movie.description}</p></p>
                         <p className='w-3/4 flex'>
-                            <p>Casting:</p>
+                            <p><b>Casting:</b></p>
                             <p className='pl-4 text-justify'>{this.state.movie.cast !== '' ? this.state.movie.cast : 'Not specified'}</p>
                             </p>
                         <p className='w-3/4 flex'>
-                            <p>Creators:</p>
+                            <p><b>Creators:</b></p>
                             <p className='pl-4 text-justify'>{this.state.movie.director !== '' ? this.state.movie.director : 'Not specified'}</p>
                         </p>
                     </div>
