@@ -66,7 +66,22 @@ CREATE TABLE IF NOT EXISTS films
     listed_in VARCHAR(100) NOT NULL,
     description text NOT NULL,
     picture text NOT NULL,
-    FULLTEXT (title, description, cast),
+    PRIMARY KEY (id)
+);
+
+CREATE TABLE IF NOT EXISTS logs
+(
+    id BIGINT unsigned NOT NULL AUTO_INCREMENT,
+    user_email VARCHAR(255) NOT NULL,
+    connected_at DATETIME NOT NULL DEFAULT current_timestamp,
+    user_agent VARCHAR(255) NOT NULL,
+    navigateur VARCHAR(255) NOT NULL,
+    platform VARCHAR(255) NOT NULL,
+    language VARCHAR(255) NOT NULL,
+    encoding VARCHAR(255) NOT NULL,
+    is_on_mobile BOOLEAN NOT NULL DEFAULT false,
+    ip_address VARCHAR(255) NOT NULL,
+    country VARCHAR(255) NOT NULL,
     PRIMARY KEY (id)
 );
 ```
@@ -127,69 +142,70 @@ React will automatically redirect you to the home page of the website (localhost
 |/user/profile_image|PUT|YES|Change user profile picture using an image url and his token|
 
 ## Features Frontend *(in development)*
+
 <details>
 	<summary>Home page (not connected)</summary>
-> Home page when user is not connected 
+	
 ![Home Not Logged In](assets/home_not_logged_in.png)
 </details>
 
 <details>
 	<summary>Home page (connected)</summary>
-> Home page when user is connected
+
 ![Home Logged In](assets/home_logged_in.png)
 </details>
 
 <details>
 	<summary>Login page</summary>
-> Login page
+
 ![Login](assets/login.png)
 </details>
 
 <details>
 	<summary>Register page</summary>
-> Register page
+
 ![Register](assets/register.png)
 </details>
 
 <details>
 	<summary>Account settings (base)</summary>
-> Basic account settings page
+
 ![AccountBasics](assets/account_basics.png)
 </details>
 
 <details>
 	<summary>Account settings (profile picture choice)</summary>
-> Account settings page when profile picture choice modal is open
+
 ![AccountPP](assets/account_pp.png)
 </details>
 
 <details>
 	<summary>Account settings (delete account)</summary>
-> Account settings page when delete account modal is open
+
 ![AccountDeleteModal](assets/account_delete_modal.png)
 </details>
 
 <details>
 	<summary>Movies page</summary>
-> All movies with filters
+
 ![Movies](assets/movies.png)
 </details>
 
 <details>
 	<summary>TV-Shows page</summary>
-> All TV Shows with filters
+
 ![TV Shows](assets/tvshows.png)
 </details>
 
 <details>
 	<summary>Search results page</summary>
-> Page displayed after search a film by its title, description or casting
+
 ![Search](assets/search_bar.png)
 </details>
 
 <details>
 	<summary>404 page</summary>
-> 404 page not found
+
 ![404](assets/landing.png)
 </details>
 
