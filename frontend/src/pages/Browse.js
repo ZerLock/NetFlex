@@ -30,7 +30,7 @@ class Browse extends React.Component {
 
             console.log(JSON.stringify(search_body));
 
-            fetch('http://localhost:5001/films/browse', {
+            fetch('http://0.0.0.0:5001/films/browse', {
                 method: 'POST',
                 headers: new Headers({
                     'Authorization': `Bearer ${localStorage.getItem('user_token')}`,

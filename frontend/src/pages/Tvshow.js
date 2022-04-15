@@ -26,7 +26,7 @@ export default class Tvshow extends React.Component {
                 type: "TV Show"
             };
 
-            fetch("http://localhost:5001/films/type", {
+            fetch("http://0.0.0.0:5001/films/type", {
                 method: "POST",
                 headers: new Headers({
                     "Authorization": `Bearer ${localStorage.getItem("user_token")}`,
@@ -51,7 +51,7 @@ export default class Tvshow extends React.Component {
                 type: "TV Show"
             };
 
-            fetch('http://localhost:5001/films/genre', {
+            fetch('http://0.0.0.0:5001/films/genre', {
                 method: 'POST',
                 headers: new Headers({
                     "Authorization": `Bearer ${localStorage.getItem("user_token")}`,

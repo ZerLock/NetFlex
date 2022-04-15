@@ -55,8 +55,12 @@ router.post('/login', (req, res) => {
         return res.status(500).json({ msg: 'internal server error' });
 
     const ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
-    const navigateur = req.headers['sec-ch-ua'].split(',')[2].split(';')[0];
-    const platform = req.headers['sec-ch-ua-platform'];
+    let navigateur =  "";
+    let platform = "";
+    if (req.headers['sec-ch-ua'])
+        navigateur = req.headers['sec-ch-ua'].split(',')[2].split(';')[0];
+    if (req.headers['sec-ch-ua-platform'])
+        platform = req.headers['sec-ch-ua-platform'];
     const language = req.headers['accept-language'].split(',')[0];
     const encoding = req.headers['accept-encoding'];
     const is_on_mobile = (req.headers['sec-ch-ua-mobile'] === '?0') ? false : true;

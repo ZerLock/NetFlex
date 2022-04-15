@@ -21,7 +21,7 @@ class Moviepage extends React.Component {
         if (!isConnected)
             this.setState({ redirect_to_home: true });
 
-        fetch(`http://localhost:5001/films/${id}`, {
+        fetch(`http://0.0.0.0:5001/films/${id}`, {
             method: 'GET',
             headers: new Headers({
                 'Authorization': `Bearer ${localStorage.getItem('user_token')}`,

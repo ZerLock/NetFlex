@@ -112,7 +112,7 @@ class Myaccount extends React.Component {
     componentDidMount() {
         Modal.setAppElement('body');
         if (this.state.isLoggedIn) {
-            fetch('http://localhost:5001/user', {
+            fetch('http://0.0.0.0:5001/user', {
                 method: 'GET',
                 headers: new Headers({
                     'Authorization': `Bearer ${localStorage.getItem('user_token')}`,
@@ -189,7 +189,7 @@ class Myaccount extends React.Component {
             nickname: this.state.new_nickname
         };
 
-        fetch('http://localhost:5001/user/nickname', {
+        fetch('http://0.0.0.0:5001/user/nickname', {
             method: 'PUT',
             headers: new Headers({
                 'Authorization': `Bearer ${localStorage.getItem('user_token')}`,
@@ -217,7 +217,7 @@ class Myaccount extends React.Component {
 
     handleSubmitDelete(event) {
         event.preventDefault();
-        fetch('http://localhost:5001/user', {
+        fetch('http://0.0.0.0:5001/user', {
             method: 'DELETE',
             headers: new Headers({
                 'Authorization': `Bearer ${localStorage.getItem('user_token')}`,
@@ -262,7 +262,7 @@ class Myaccount extends React.Component {
             image_url: url,
         };
 
-        fetch('http://localhost:5001/user/profile_image', {
+        fetch('http://0.0.0.0:5001/user/profile_image', {
             method: 'PUT',
             headers: new Headers({
                 'Authorization': `Bearer ${localStorage.getItem('user_token')}`,
@@ -325,7 +325,7 @@ class Myaccount extends React.Component {
             new: this.state.new_password
         };
 
-        fetch('http://localhost:5001/user/password', {
+        fetch('http://0.0.0.0:5001/user/password', {
             method: 'PUT',
             headers: new Headers({
                 'Authorization': `Bearer ${localStorage.getItem('user_token')}`,

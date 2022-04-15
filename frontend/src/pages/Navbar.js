@@ -25,7 +25,7 @@ export function HomeNavbar() {
 
     useEffect(() => {
         if (isConnected()) {
-            fetch('http://localhost:5001/user', {
+            fetch('http://0.0.0.0:5001/user', {
                 method: 'GET',
                 headers: new Headers({
                     'Authorization': `Bearer ${localStorage.getItem('user_token')}`,

@@ -57,7 +57,7 @@ class Register extends React.Component {
             password: this.state.password
         };
 
-        fetch('http://localhost:5001/register', {
+        fetch('http://0.0.0.0:5001/register', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json;charset=utf-8'

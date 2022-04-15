@@ -31,7 +31,7 @@ export class Loggedin extends React.Component {
                 type: 'Movie'
             }
 
-            fetch('http://localhost:5001/films/type', {
+            fetch('http://0.0.0.0:5001/films/type', {
                 method: 'POST',
                 headers: new Headers({
                     'Authorization': `Bearer ${localStorage.getItem('user_token')}`,
@@ -47,7 +47,7 @@ export class Loggedin extends React.Component {
                 type: 'TV Show'
             }
 
-            fetch('http://localhost:5001/films/type', {
+            fetch('http://0.0.0.0:5001/films/type', {
                 method: 'POST',
                 headers: new Headers({
                     'Authorization': `Bearer ${localStorage.getItem('user_token')}`,
